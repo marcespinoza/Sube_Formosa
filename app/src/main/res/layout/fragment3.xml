@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.flavienlaurent.discrollview.lib.DiscrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:discrollve="http://schemas.android.com/apk/res-auto"
+    xmlns:font="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.flavienlaurent.discrollview.lib.DiscrollViewContent
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <net.kianoni.fontloader.TextView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#90A4AE"
+            android:textColor="@android:color/black"
+            android:padding="5dp"
+            android:textSize="64sp"
+            android:gravity="center"
+            android:fontFamily="serif"
+            android:text="La SUBE llega a Formosa"
+            font:fontFile="fonts/Roboto-Medium.ttf"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#76FF03"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_threshold="0.3" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_translation="fromLeft|fromBottom"
+            android:src="@drawable/formosa" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#F50057"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_threshold="0.3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:padding="20dp"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="Y con ella tambien llega"
+            android:textSize="18sp"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_translation="fromBottom"
+            android:textColor="#ffffffff" />
+
+          <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#007788"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_threshold="0.3" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:layout_gravity="right"
+            android:src="@drawable/subeblanco"
+            discrollve:discrollve_translation="fromRight"
+            android:background="#90A4AE"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_gravity="left"
+            android:src="@drawable/androidiscroll"
+            discrollve:discrollve_scaleX="true"
+            discrollve:discrollve_scaleY="true"
+            android:background="#90A4AE"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:padding="20dp"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="Hacé correr la voz. Invita a tus amigos a probar la aplicacion antes de su version final uniendose a la comunidad en Google+ ..."
+            android:textSize="18sp"
+            discrollve:discrollve_alpha="true"
+            discrollve:discrollve_translation="fromBottom"
+            android:textColor="#ffffffff" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/subemovilcomunidad"
+            discrollve:discrollve_scaleX="true"
+            discrollve:discrollve_scaleY="true"
+            android:background="#FFAB00"/>
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/root_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#607D8B">
+
+        <FrameLayout
+            android:id="@+id/menu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#607D8B"
+            android:visibility="invisible"
+            >
+
+        <com.ogaclejapan.arclayout.ArcLayout
+            android:id="@+id/arc_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:arc_origin="bottom"
+            app:arc_color="#4D000000"
+            app:arc_radius="168dp"
+            app:arc_axisRadius="120dp"
+            app:arc_freeAngle="false"
+            app:arc_reverseAngle="false"
+            >
+
+            <Button
+                style="@style/Item.Path"
+                android:background="@drawable/facebook"
+                app:arc_angle="30"
+                />
+
+            <Button
+                style="@style/Item.Path"
+                android:background="@drawable/whatsapp"
+                app:arc_angle="60"
+                />
+
+            <Button
+                style="@style/Item.Path"
+                android:background="@drawable/twitter"
+                app:arc_angle="90"
+                />
+
+        </com.ogaclejapan.arclayout.ArcLayout>
+        </FrameLayout>
+        <Button
+            android:id="@+id/fab"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:textSize="24sp"
+            android:background="@drawable/share_icon"
+            />
+        </RelativeLayout>
+
+    </com.flavienlaurent.discrollview.lib.DiscrollViewContent>
+</com.flavienlaurent.discrollview.lib.DiscrollView>
