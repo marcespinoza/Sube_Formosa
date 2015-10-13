@@ -22,6 +22,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.jmpergar.awesometext.AwesomeTextHandler;
+import com.rey.material.widget.CompoundButton;
+import com.rey.material.widget.Switch;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -33,7 +36,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import com.special.ResideMenu.ResideMenu;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,7 +47,7 @@ import java.util.Locale;
 /**
  * Created by Marcelo on 10/04/2015.
  */
-public class fragment1 extends Fragment {
+public class fragment1 extends Fragment implements GoogleMap.OnMyLocationChangeListener {
 
     InputStream is;
     TextView ubicacionActual, ubicacionCercana;
@@ -55,35 +58,22 @@ public class fragment1 extends Fragment {
     JSONArray jArray;
     Location loc1 = new Location("");
     ListInterface listInterface;
+    Switch aSwitch;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment1, container, false);
+
         ubicacionActual =(TextView) rootView.findViewById(R.id.ubicacionactual);
-        ubicacionActual.setText("Sin ubicación");
         ubicacionCercana=(TextView) rootView.findViewById(R.id.ubicacioncercana);
         mapFragment = ((SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map));
         map = mapFragment.getMap();
         map.setMyLocationEnabled(true);
-                // Zoom in, animating the camera.
-
-               map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-                   @Override
-                   public void onMyLocationChange(Location location) {
-                       LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                       getCompleteAddressString(location.getLatitude(), location.getLongitude(), true);
-                       map.addMarker(new MarkerOptions().position(loc));
-                       loc1.setLatitude(location.getLatitude());
-                       loc1.setLongitude(location.getLongitude());
-                       new Markers().execute();
-                       if(map != null){
-                           map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
-                       }
-                   }
-                    });
-        new Markers().execute();
+        map.setOnMyLocationChangeListener(this);
+        ubicacionActual.setText("Sin ubicación");
         return rootView;
     }
     private String getCompleteAddressString(double LATITUDE, double LONGITUDE, boolean flag) {
@@ -114,6 +104,20 @@ public class fragment1 extends Fragment {
             Log.w("My Current address", "Canont get Address!");
         }
         return strAdd;
+    }
+
+    @Override
+    public void onMyLocationChange(Location location) {
+        LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+        getCompleteAddressString(location.getLatitude(), location.getLongitude(), true);
+        map.addMarker(new MarkerOptions().position(loc));
+        loc1.setLatitude(location.getLatitude());
+        loc1.setLongitude(location.getLongitude());
+        new Markers().execute();
+        if(map != null){
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
+            map.setOnMyLocationChangeListener(null);
+        }
     }
 
     private class Markers extends AsyncTask<Void, Void, Boolean> {
@@ -204,7 +208,7 @@ public class fragment1 extends Fragment {
         try {
             listInterface = (ListInterface) getActivity();
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement onButtonPressed");
+            throw new ClassCastException(activity.toString() + " must implement interface");
 
 
         }

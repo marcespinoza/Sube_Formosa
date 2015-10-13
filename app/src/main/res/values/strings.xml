@@ -9,5 +9,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="sube">Esta es una version de prueba, incluye un solo punto
+    de prueba que es el Centro Cultural de la Municipalidad donde se atienden todo tipo de consultas
+    y que funciona de lunes a viernes de 8 a 12 y 17 a 21. Para manternete informado acerca de la
+    aplicacion podes visitar faceboo.com/sube movil. Para consultas, sugerencias, aportes,reportes utiliza la opcion de Contacto</string>
 
 </resources>

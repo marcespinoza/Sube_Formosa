@@ -39,44 +39,9 @@ public class fragment3 extends Fragment  {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment3, container, false);
-        mArcLayout = (ArcLayout) rootView.findViewById(R.id.arc_layout);
-        mFab = rootView.findViewById(R.id.fab);
-        mMenuLayout = rootView.findViewById(R.id.menu_layout);
-        for (int i = 0, size = mArcLayout.getChildCount(); i < size; i++) {
-            mArcLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PackageManager pm=getActivity().getPackageManager();
-                    try {
 
-                        Intent waIntent = new Intent(Intent.ACTION_SEND);
-                        waIntent.setType("text/plain");
-                        waIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                        String text = "YOUR TEXT HERE";
 
-                        PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-                        //Check if package exists or not. If not then code
-                        //in catch block will be called
-                        waIntent.setPackage("com.whatsapp");
 
-                        waIntent.putExtra(Intent.EXTRA_TEXT, text);
-                        startActivity(waIntent);
-
-                    } catch (PackageManager.NameNotFoundException e) {
-                        Toast.makeText(getActivity().getApplicationContext(), "WhatsApp not Installed", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                }
-            });
-        }
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFabClick(v);
-                return;
-
-            }
-        });
         return rootView;
     }
 

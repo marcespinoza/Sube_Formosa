@@ -41,8 +41,6 @@ public class fragment2 extends Fragment{
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         myRecycler.setLayoutManager(manager);
         myRecycler.setHasFixedSize(true);
-
-
         ParallaxRecyclerAdapter<String> stringAdapter = new ParallaxRecyclerAdapter<>(content);
         stringAdapter.implementRecyclerAdapterMethods(new ParallaxRecyclerAdapter.RecyclerAdapterMethods() {
             @Override
@@ -89,12 +87,13 @@ public class fragment2 extends Fragment{
                 JSONObject json_data;
                 try {
                     json_data = list.getJSONObject(i);
-                    content.add(json_data.getString("direccion"));
+                    content.add(json_data.getString("direccion")+"\n"+(json_data.getString("horario")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
+
         }
     }
 
