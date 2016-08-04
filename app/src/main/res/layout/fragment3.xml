@@ -1,105 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.flavienlaurent.discrollview.lib.DiscrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:discrollve="http://schemas.android.com/apk/res-auto"
-    xmlns:font="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+   <WebView android:id="@+id/webPage"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:paddingTop="70dp"/>
+    </LinearLayout>
 
-    <com.flavienlaurent.discrollview.lib.DiscrollViewContent
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <net.kianoni.fontloader.TextView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="#90A4AE"
-            android:textColor="@android:color/black"
-            android:padding="5dp"
-            android:textSize="64sp"
-            android:gravity="center"
-            android:fontFamily="serif"
-            android:text="La SUBE llega a Formosa"
-            font:fontFile="fonts/Roboto-Medium.ttf"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#76FF03"
-            discrollve:discrollve_alpha="true"
-            discrollve:discrollve_threshold="0.3" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            discrollve:discrollve_alpha="true"
-            discrollve:discrollve_translation="fromLeft|fromBottom"
-            android:src="@drawable/formosa" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#F50057"
-            discrollve:discrollve_alpha="true"
-            discrollve:discrollve_threshold="0.3" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#000000"
-            android:padding="20dp"
-            android:fontFamily="serif"
-            android:gravity="center"
-            android:text="Y con ella tambien llega"
-            android:textSize="18sp"
-            discrollve:discrollve_alpha="true"
-            discrollve:discrollve_translation="fromBottom"
-            android:textColor="#ffffffff" />
-
-          <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#007788"
-            discrollve:discrollve_alpha="true"
-            discrollve:discrollve_threshold="0.3" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="110dp"
-            android:layout_gravity="right"
-            android:src="@drawable/subeblanco"
-            discrollve:discrollve_translation="fromRight"
-            android:background="#90A4AE"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_gravity="left"
-            android:src="@drawable/androidiscroll"
-            discrollve:discrollve_scaleX="true"
-            discrollve:discrollve_scaleY="true"
-            android:background="#90A4AE"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#000000"
-            android:padding="20dp"
-            android:fontFamily="serif"
-            android:gravity="center"
-            android:text="Invita a tus amigos a probar la aplicacion o visita \n  facebook.com/sube movil"
-            android:textSize="18sp"
-            discrollve:discrollve_alpha="true"
-            discrollve:discrollve_translation="fromBottom"
-            android:textColor="#ffffffff" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#007788"
-            discrollve:discrollve_alpha="true"
-            discrollve:discrollve_threshold="0.3" />
-
-
-    </com.flavienlaurent.discrollview.lib.DiscrollViewContent>
-</com.flavienlaurent.discrollview.lib.DiscrollView>

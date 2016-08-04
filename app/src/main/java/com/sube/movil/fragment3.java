@@ -1,37 +1,25 @@
 package com.sube.movil;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
+
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnticipateInterpolator;
-import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
-import android.widget.Toast;
-import com.ogaclejapan.arclayout.ArcLayout;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
- * Created by Marcelo on 11/04/2015.
+ * Created by Marcelo
  */
 public class fragment3 extends Fragment  {
 
-    ArcLayout mArcLayout;
-    View mFab;
-    View mMenuLayout;
-    Toast mToast = null;
-    Button fab;
     View rootView;
 
     @Override
@@ -39,115 +27,105 @@ public class fragment3 extends Fragment  {
                              Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment3, container, false);
+        final WebView webView = (WebView) rootView.findViewById(R.id.webPage);
+        webView.loadUrl("https://www.sube.gob.ar/login.aspx");
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setSupportZoom(true);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                webView.loadUrl(
+                        "javascript:(function() { " +
+                                "var element = document.getElementById('barraCyan');"
+                                + "element.parentNode.removeChild(element);" + "var element2 = document.getElementsByClassName('container-fluid')[0].style.display='none';" +
+                                "var element3 = document.getElementsByClassName('login')[0].style.display='none';" +
+                                "var element3 = document.getElementsByClassName('login')[1].style.display='none';" +
+                                "})()");
+            }
 
+            public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
+                Log.i("llama","ssl");
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog alertDialog = builder.create();
+                String message = "SSL Certificate error.";
+                switch (error.getPrimaryError()) {
+                    case SslError.SSL_UNTRUSTED:
+                        message = "The certificate authority is not trusted.";
+                        break;
+                    case SslError.SSL_EXPIRED:
+                        message = "The certificate has expired.";
+                        break;
+                    case SslError.SSL_IDMISMATCH:
+                        message = "The certificate Hostname mismatch.";
+                        break;
+                    case SslError.SSL_NOTYETVALID:
+                        message = "The certificate is not yet valid.";
+                        break;
+                }
+
+                message += " Do you want to continue anyway?";
+                alertDialog.setTitle("SSL Certificate Error");
+                alertDialog.setMessage(message);
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Ignore SSL certificate errors
+                        handler.proceed();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
 
         return rootView;
     }
 
 
+    private class SSLTolerentWebViewClient extends WebViewClient {
+        public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
 
-    private void showToast(Button btn) {
-        if (mToast != null) {
-            mToast.cancel();
-        }
-
-        String text = "Clicked: " + btn.getText();
-        mToast = Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT);
-        mToast.show();
-
-    }
-
-    private void onFabClick(View v) {
-        if (v.isSelected()) {
-            hideMenu();
-        } else {
-            showMenu();
-        }
-        v.setSelected(!v.isSelected());
-    }
-
-    @SuppressWarnings("NewApi")
-    private void showMenu() {
-
-        mMenuLayout.setVisibility(View.VISIBLE);
-        List<Animator> animList = new ArrayList<>();
-
-        for (int i = 0, len = mArcLayout.getChildCount(); i < len; i++) {
-            animList.add(createShowItemAnimator(mArcLayout.getChildAt(i)));
-        }
-
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.setDuration(400);
-        animSet.setInterpolator(new OvershootInterpolator());
-        animSet.playTogether(animList);
-        animSet.start();
-    }
-
-    @SuppressWarnings("NewApi")
-    private void hideMenu() {
-
-        List<Animator> animList = new ArrayList<>();
-
-        for (int i = mArcLayout.getChildCount() - 1; i >= 0; i--) {
-            animList.add(createHideItemAnimator(mArcLayout.getChildAt(i)));
-        }
-
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.setDuration(400);
-        animSet.setInterpolator(new AnticipateInterpolator());
-        animSet.playTogether(animList);
-        animSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                mMenuLayout.setVisibility(View.INVISIBLE);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog alertDialog = builder.create();
+            String message = "SSL Certificate error.";
+            switch (error.getPrimaryError()) {
+                case SslError.SSL_UNTRUSTED:
+                    message = "The certificate authority is not trusted.";
+                    break;
+                case SslError.SSL_EXPIRED:
+                    message = "The certificate has expired.";
+                    break;
+                case SslError.SSL_IDMISMATCH:
+                    message = "The certificate Hostname mismatch.";
+                    break;
+                case SslError.SSL_NOTYETVALID:
+                    message = "The certificate is not yet valid.";
+                    break;
             }
-        });
-        animSet.start();
 
+            message += " Do you want to continue anyway?";
+            alertDialog.setTitle("SSL Certificate Error");
+            alertDialog.setMessage(message);
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Ignore SSL certificate errors
+                    handler.proceed();
+                }
+            });
+
+        }
     }
 
-    private Animator createShowItemAnimator(View item) {
 
-        float dx = mFab.getX() - item.getX();
-        float dy = mFab.getY() - item.getY();
-
-        item.setRotation(0f);
-        item.setTranslationX(dx);
-        item.setTranslationY(dy);
-
-        Animator anim = ObjectAnimator.ofPropertyValuesHolder(
-                item,
-                AnimatorUtils.rotation(0f, 720f),
-                AnimatorUtils.translationX(dx, 0f),
-                AnimatorUtils.translationY(dy, 0f)
-        );
-
-        return anim;
-    }
-
-    private Animator createHideItemAnimator(final View item) {
-        float dx = mFab.getX() - item.getX();
-        float dy = mFab.getY() - item.getY();
-
-        Animator anim = ObjectAnimator.ofPropertyValuesHolder(
-                item,
-                AnimatorUtils.rotation(720f, 0f),
-                AnimatorUtils.translationX(0f, dx),
-                AnimatorUtils.translationY(0f, dy)
-        );
-
-        anim.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                item.setTranslationX(0f);
-                item.setTranslationY(0f);
-            }
-        });
-
-        return anim;
-    }
 }
-
