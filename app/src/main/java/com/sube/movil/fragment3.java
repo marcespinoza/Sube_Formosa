@@ -15,6 +15,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
+
 /**
  * Created by Marcelo
  */
@@ -28,6 +30,8 @@ public class fragment3 extends Fragment  {
 
         rootView = inflater.inflate(R.layout.fragment3, container, false);
         final WebView webView = (WebView) rootView.findViewById(R.id.webPage);
+        final CircularProgressView progressView = (CircularProgressView) rootView.findViewById(R.id.progress_view);
+        progressView.startAnimation();
         webView.loadUrl("https://www.sube.gob.ar/login.aspx");
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -50,6 +54,8 @@ public class fragment3 extends Fragment  {
                                 "var element3 = document.getElementsByClassName('login')[0].style.display='none';" +
                                 "var element3 = document.getElementsByClassName('login')[1].style.display='none';" +
                                 "})()");
+                progressView.stopAnimation();
+                progressView.setVisibility(View.INVISIBLE);
             }
 
             public void onReceivedSslError(WebView view, final SslErrorHandler handler, SslError error) {
@@ -86,6 +92,7 @@ public class fragment3 extends Fragment  {
                 AlertDialog alert = builder.create();
                 alert.show();
             }
+
         });
 
         return rootView;

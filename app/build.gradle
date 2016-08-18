@@ -86,4 +86,5 @@ dependencies {
     compile 'com.github.hotchemi:android-rate:0.5.5'
     compile files('libs/httpclient-4.5.1.jar')
     compile ('org.jsoup:jsoup:1.9.2')
+    compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
 }
