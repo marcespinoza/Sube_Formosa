@@ -13,19 +13,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.jmpergar.awesometext.AwesomeTextHandler;
-import com.rey.material.widget.CompoundButton;
-import com.rey.material.widget.Switch;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -36,7 +38,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.special.ResideMenu.ResideMenu;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,7 +48,8 @@ import java.util.Locale;
 /**
  * Created by Marcelo on 10/04/2015.
  */
-public class fragment1 extends Fragment implements GoogleMap.OnMyLocationChangeListener {
+public class fragment1 extends Fragment implements
+        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     InputStream is;
     TextView ubicacionActual, ubicacionCercana;
@@ -58,7 +60,8 @@ public class fragment1 extends Fragment implements GoogleMap.OnMyLocationChangeL
     JSONArray jArray;
     Location loc1 = new Location("");
     ListInterface listInterface;
-    Switch aSwitch;
+    LocationRequest mLocationRequest;
+    GoogleApiClient mGoogleApiClient;
 
 
     @Override
@@ -70,12 +73,12 @@ public class fragment1 extends Fragment implements GoogleMap.OnMyLocationChangeL
         ubicacionActual =(TextView) rootView.findViewById(R.id.ubicacionactual);
         ubicacionCercana=(TextView) rootView.findViewById(R.id.ubicacioncercana);
         mapFragment = ((SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map));
-        map = mapFragment.getMap();
-        map.setMyLocationEnabled(true);
-        map.setOnMyLocationChangeListener(this);
-        ubicacionActual.setText("Sin ubicación");
+        mapFragment.getMapAsync(this);
         return rootView;
     }
+
+
+
     private String getCompleteAddressString(double LATITUDE, double LONGITUDE, boolean flag) {
         String strAdd = "";
         Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.getDefault());
@@ -106,8 +109,33 @@ public class fragment1 extends Fragment implements GoogleMap.OnMyLocationChangeL
         return strAdd;
     }
 
+
+
     @Override
-    public void onMyLocationChange(Location location) {
+    public void onConnected(Bundle bundle) {
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+            LatLng loc = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            getCompleteAddressString(mLastLocation.getLatitude(), mLastLocation.getLongitude(), true);
+            map.addMarker(new MarkerOptions().position(loc));
+            loc1.setLatitude(mLastLocation.getLatitude());
+            loc1.setLongitude(mLastLocation.getLongitude());
+            new Markers().execute();
+            if(map != null){
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
+                map.setOnMyLocationChangeListener(null);
+            }
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
         LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
         getCompleteAddressString(location.getLatitude(), location.getLongitude(), true);
         map.addMarker(new MarkerOptions().position(loc));
@@ -118,6 +146,29 @@ public class fragment1 extends Fragment implements GoogleMap.OnMyLocationChangeL
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
             map.setOnMyLocationChangeListener(null);
         }
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        map.setMyLocationEnabled(true);
+        ubicacionActual.setText("Sin ubicación");
+        buildGoogleApiClient();
+        mGoogleApiClient.connect();
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        Toast.makeText(getActivity(),"buildGoogleApiClient", Toast.LENGTH_SHORT).show();
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 
     private class Markers extends AsyncTask<Void, Void, Boolean> {
