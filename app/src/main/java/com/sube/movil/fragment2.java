@@ -1,8 +1,10 @@
 package com.sube.movil;
 
+import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,84 +12,77 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.melnykov.fab.FloatingActionButton;
-import com.poliveira.parallaxrecycleradapter.ParallaxRecyclerAdapter;
-
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.poliveira.parallaxrecyclerview.ParallaxRecyclerAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Marcelo on 11/04/2015.
  */
-public class fragment2 extends Fragment{
+public class fragment2 extends Fragment {
 
-    final List<String> content = new ArrayList<>();
+    List <PuntoVenta> items = new ArrayList();
+    RecyclerView myRecycler;
+    Parallax parallaxAdapter ;
+    FloatingSearchView mSearchView;
+    private List<PuntoVenta> orig;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment2, container, false);
-        RecyclerView myRecycler = (RecyclerView) rootView.findViewById(R.id.myRecycler);
+        mSearchView = (FloatingSearchView) rootView.findViewById(R.id.floating_search_view);
+        myRecycler = (RecyclerView) rootView.findViewById(R.id.myRecycler);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         myRecycler.setLayoutManager(manager);
         myRecycler.setHasFixedSize(true);
-        ParallaxRecyclerAdapter<String> stringAdapter = new ParallaxRecyclerAdapter<>(content);
-        stringAdapter.implementRecyclerAdapterMethods(new ParallaxRecyclerAdapter.RecyclerAdapterMethods() {
-            @Override
-            public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
-                ((TextView) viewHolder.itemView).setText(content.get(i));
-            }
+        parallaxAdapter  = new Parallax(items) ;
 
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-                return new SimpleViewHolder(getActivity().getLayoutInflater().inflate(android.R.layout.simple_list_item_1, viewGroup, false));
-            }
-
-            @Override
-            public int getItemCount() {
-                return content.size();
-            }
-        });
-
-        stringAdapter.setParallaxHeader(getActivity().getLayoutInflater().inflate(R.layout.my_header, myRecycler, false), myRecycler);
-        stringAdapter.setOnParallaxScroll(new ParallaxRecyclerAdapter.OnParallaxScroll() {
+        parallaxAdapter .setParallaxHeader(LayoutInflater.from(getActivity()).inflate(R.layout.parallaxheader, myRecycler, false), myRecycler);
+        parallaxAdapter .setOnParallaxScroll(new ParallaxRecyclerAdapter.OnParallaxScroll() {
             @Override
             public void onParallaxScroll(float percentage, float offset, View parallax) {
-                //TODO: implement toolbar alpha. See README for details
+
             }
         });
-        myRecycler.setAdapter(stringAdapter);
-
+        setupFloatingSearch();
+        myRecycler.setAdapter(parallaxAdapter);
         return rootView;}
 
-    static class SimpleViewHolder extends RecyclerView.ViewHolder {
 
-        public SimpleViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
 
-    public String getListString(int position) {
-        return position + " - android";
-    }
+    private void setupFloatingSearch() {
+        mSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+
+            @Override
+            public void onSearchTextChanged(String oldQuery, final String newQuery) {
+
+                if (!oldQuery.equals("") && newQuery.equals("")) {
+                    mSearchView.clearSuggestions();
+                } else {
+                    parallaxAdapter.getFilter().filter(newQuery.toString());
+                }
+
+                Log.i("","pnyyyy"+newQuery);
+            }
+        });}
 
     void getList(JSONArray list){
         if(list!=null) {
             for (int i = 0; i < list.length(); i++) {
+                PuntoVenta puntoventa = new PuntoVenta();
                 JSONObject json_data;
                 try {
                     json_data = list.getJSONObject(i);
-                    content.add(json_data.getString("direccion")+"\n"+(json_data.getString("horario")));
+                    puntoventa.setTitle(json_data.getString("direccion"));
+                    puntoventa.setDescription(json_data.getString("horario"));
+                    items.add(puntoventa);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -96,5 +91,31 @@ public class fragment2 extends Fragment{
 
         }
     }
+
+
+
+        public  class NoticiaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        // Campos respectivos de un item
+        public View view;
+        private Context context;
+        public TextView titulo;
+        public TextView descripcion;
+        CardView cardview;
+
+        public NoticiaViewHolder(View v, Context context) {
+            super(v);
+            this.context = context;
+            cardview =  (CardView) v.findViewById(R.id.card_view);
+            cardview.setOnClickListener(this);
+            titulo = (TextView) v.findViewById(R.id.txt_title);
+            descripcion = (TextView) v.findViewById(R.id.txt_description);
+        }
+
+        @Override
+        public void onClick(View v) {
+        }
+
+
+        }
 
 }

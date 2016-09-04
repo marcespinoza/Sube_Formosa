@@ -3,24 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#4A148C"
-   >
+    android:background="#00695C"
+    android:weightSum="1">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        >
-
-    <TextView
+     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
-        android:textSize="20dp"
-        android:textColor="#ECEFF1"
+         android:textSize="20dp"
+         android:textColor="#ECEFF1"
         android:text="Centros de compra"/>
 
     <TextView
@@ -60,17 +53,13 @@
         android:textColor="#78909C"
         android:text="Fotheringham 1364"/>
 
-    </LinearLayout>
-
-
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-       android:layout_marginTop="40dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:id="@+id/imageView"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:background="@drawable/subeblanco"/>
 
-
-
 </LinearLayout>
+

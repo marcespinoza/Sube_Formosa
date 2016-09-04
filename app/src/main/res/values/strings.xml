@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="search_hint">Sube Movil</string>
     <string name="app_name">Sube Movil</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -9,10 +9,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-    <string name="sube">Esta es una version de prueba, incluye un solo punto
-    de prueba que es el Centro Cultural de la Municipalidad donde se realiza la venta de tarjetas a $10
-        de lunes a viernes de 8 a 13 y 17 a 21 y sábado de 9 a 13 y 18 a 21.Si tenes un local de venta/recarga
-        manda un mail con los datos para que aparezca en la lista. Para manternete informado acerca de la
-    aplicacion podes visitar facebook.com/sube movil. Para consultas, sugerencias, aportes,reportes utiliza la opcion de Contacto</string>
 
 </resources>

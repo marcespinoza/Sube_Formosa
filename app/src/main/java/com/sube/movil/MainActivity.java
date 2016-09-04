@@ -66,15 +66,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         // attach to current activity;
         resideMenu = new ResideMenu(this);
-        resideMenu.setBackground(R.drawable.fondomain);
+        resideMenu.setBackground(R.drawable.fondo);
         resideMenu.attachToActivity(this);
         resideMenu.setMenuListener(menuListener);
         //valid scale factor is between 0.0f and 1.0f. leftmenu'width is 150dip.
         resideMenu.setScaleValue(0.6f);
 
         // create menu items;
-        itemHome     = new ResideMenuItem(this, R.drawable.cuenta, "Inicio");
-        itemProfile  = new ResideMenuItem(this, R.drawable.puntosrecarga,  "Centros"+"\n"+"Venta"+"\n"+"Recarga");
+        itemHome     = new ResideMenuItem(this, R.drawable.puntosrecarga, "Mapa");
+        itemProfile  = new ResideMenuItem(this, R.drawable.cuenta,  "Centros"+"\n"+"Venta"+"\n"+"Recarga");
         misube = new ResideMenuItem(this, R.drawable.horarios, "Mi Sube");
         contacto = new ResideMenuItem(this, R.drawable.contacto,"Contacto");
         compartir = new ResideMenuItem(this, R.drawable.compartir,"Compartí");

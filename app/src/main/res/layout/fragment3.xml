@@ -7,10 +7,10 @@
 
 
 
-   <WebView android:id="@+id/webPage"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:paddingTop="70dp"/>
+    <WebView android:id="@+id/webPage"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:paddingTop="70dp"/>
 
     <com.github.rahatarmanahmed.cpv.CircularProgressView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,5 +20,5 @@
         android:layout_height="40dp"
         app:cpv_animAutostart="true"
         app:cpv_indeterminate="true" />
-    </FrameLayout>
+</FrameLayout>
 
