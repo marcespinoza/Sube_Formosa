@@ -16,8 +16,8 @@ android {
         applicationId "com.sube.movil"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 8
-        versionName "2.0"
+        versionCode 10
+        versionName "2.2"
 
         multiDexEnabled true
     }
@@ -71,8 +71,6 @@ dependencies {
     compile 'com.github.kanytu:android-parallax-recyclerview:v1.7'
     compile 'net.kianoni:fontloader:0.3.0'
     compile 'com.github.flavienlaurent.discrollview:library:0.0.2@aar'
-    compile 'com.melnykov:floatingactionbutton:1.3.0'
-    compile 'com.ogaclejapan.arclayout:library:1.0.0@aar'
     compile 'com.github.rey5137:material:1.1.1'
     compile 'com.jmpergar:AwesomeText:1.0.0'
     compile 'com.github.bluejamesbond:textjustify-android:2.1.1'
@@ -82,4 +80,7 @@ dependencies {
     compile 'org.jsoup:jsoup:1.9.2'
     compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
+    compile 'com.beardedhen:androidbootstrap:2.3.0'
+    compile 'com.github.championswimmer:Android-SocialButtons:1.0'
+    compile 'com.yarolegovich:lovely-dialog:1.0.4'
 }

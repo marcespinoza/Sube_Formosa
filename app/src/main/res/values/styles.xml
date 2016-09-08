@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="MenuItemRippleStyle" parent="Material.Drawable.Ripple.Wave">
         <item name="rd_rippleColor">#902DA0FF</item>
@@ -20,6 +20,13 @@
         <item name="android:layout_height">@dimen/item_circle_size_path</item>
         <item name="android:textSize">@dimen/item_font_size_path</item>
         <item name="android:background">@drawable/path_white_oval</item>
+    </style>
+
+    <style name="wrapping_fa_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textSize" tools:ignore="SpUsage">50dp</item>
     </style>
 
 </resources>
