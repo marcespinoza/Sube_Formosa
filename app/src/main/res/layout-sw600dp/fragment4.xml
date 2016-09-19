@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#00695C"
+    android:weightSum="1">
+
+     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
+         android:textSize="40dp"
+         android:textColor="#ECEFF1"
+        android:text="Centros de compra"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#B0BEC5"
+        android:textSize="30dp"
+        android:text="Centro de Atencion SUBE"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#78909C"
+        android:textSize="20dp"
+        android:text="Pringles y Rivadavia"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#B0BEC5"
+        android:textSize="30dp"
+        android:text="Tribunal Administrativo de faltas (altos)"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#78909C"
+        android:textSize="20dp"
+        android:text="San Martin 1061"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#B0BEC5"
+        android:textSize="30dp"
+        android:text="Oficinas de ingresos municipales"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#78909C"
+        android:textSize="20dp"
+        android:text="Fotheringham 1364"/>
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/subeblanco"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center|bottom">
+
+        <in.championswimmer.libsocialbuttons.buttons.BtnFacebook
+            android:id="@+id/facebook"
+            android:text="Sube movil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/facetext"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:text="Unite y mantenete al tanto de novedades y actualizaciones de la aplicación"/>
+
+        <com.beardedhen.androidbootstrap.AwesomeTextView
+            android:id="@+id/fa_text"
+            style="@style/wrapping_fa_text"
+            app:bootstrapBrand="primary"
+            app:fontAwesomeIcon="fa_exclamation_circle"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+
