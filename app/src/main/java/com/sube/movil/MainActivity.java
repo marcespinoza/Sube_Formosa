@@ -26,9 +26,9 @@ import hotchemi.android.rate.OnClickButtonListener;
 public class MainActivity extends FragmentActivity implements View.OnClickListener , ListInterface{
 
     private static ResideMenu resideMenu;
-    private static ResideMenuItem itemHome;
+    private static ResideMenuItem mapa;
     private ResideMenuItem misube;
-    private ResideMenuItem itemProfile;
+    private ResideMenuItem centro_ventas;
     private ResideMenuItem saldo;
     private ResideMenuItem contacto;
     private ResideMenuItem compartir;
@@ -66,23 +66,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         // attach to current activity;
         resideMenu = new ResideMenu(this);
-        resideMenu.setBackground(R.drawable.fondo);
+        resideMenu.setBackground(R.drawable.fondomain);
         resideMenu.attachToActivity(this);
         resideMenu.setMenuListener(menuListener);
-        //valid scale factor is between 0.0f and 1.0f. leftmenu'width is 150dip.
         resideMenu.setScaleValue(0.6f);
 
         // create menu items;
-        itemHome     = new ResideMenuItem(this, R.drawable.puntosrecarga, "Mapa");
-        itemProfile  = new ResideMenuItem(this, R.drawable.cuenta,  "Centros"+"\n"+"Venta"+"\n"+"Recarga");
+        mapa     = new ResideMenuItem(this, R.drawable.puntosrecarga, "Mapa");
+        centro_ventas  = new ResideMenuItem(this, R.drawable.cuenta,  "Centros"+"\n"+"Venta"+"\n"+"Recarga");
         misube = new ResideMenuItem(this, R.drawable.horarios, "Mi Sube");
         contacto = new ResideMenuItem(this, R.drawable.contacto,"Contacto");
         compartir = new ResideMenuItem(this, R.drawable.compartir,"Compartí");
         saldo= new ResideMenuItem(this,R.drawable.horarios, "Mi saldo");
 
 
-        itemHome.setOnClickListener(this);
-        itemProfile.setOnClickListener(this);
+        mapa.setOnClickListener(this);
+        centro_ventas.setOnClickListener(this);
         misube.setOnClickListener(this);
         saldo.setOnClickListener(this);
         contacto.setOnClickListener(new View.OnClickListener() {
@@ -109,13 +108,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_RIGHT);
         resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(misube, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemProfile, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(mapa, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(centro_ventas, ResideMenu.DIRECTION_RIGHT);
         resideMenu.addMenuItem(contacto, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(compartir,ResideMenu.DIRECTION_RIGHT);
         resideMenu.addMenuItem(saldo,ResideMenu.DIRECTION_RIGHT);
-
-
         // You can disable a direction by setting ->
         // resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_RIGHT);
 
@@ -141,9 +138,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
 
-        if (view == itemHome){
+        if (view == mapa){
             changeFragment(new fragment1());
-        }else if (view == itemProfile){
+        }else if (view == centro_ventas){
             changeFragment(new fragment2());
         }else if (view == saldo) {
             changeFragment(new fragment3());
@@ -209,6 +206,5 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onCreateList(JSONArray list) {
 
-        fragment2.getList(list);
     }
 }
