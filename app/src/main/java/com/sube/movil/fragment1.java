@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -20,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +57,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -65,7 +69,7 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     InputStream is;
-    TextView ubicacionActual, ubicacionCercana;
+    TextView ubicacionActual, punto1, punto2, punto3;
     GoogleMap mGoogleMap;
     SupportMapFragment mapFragment;
     ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -76,7 +80,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     GoogleApiClient mGoogleApiClient;
     LatLng loc;
     LocationRequest mLocationRequest;
-    CircularProgressView progressView;
     Snackbar snackbar;
 
     @Override
@@ -84,17 +87,15 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment1, null, false);
-        progressView = (CircularProgressView) v.findViewById(R.id.progress_view);
         final View coordinatorLayoutView = v.findViewById(R.id.snackbarPosition);
-        progressView.setVisibility(View.INVISIBLE);
         ubicacionActual =(TextView) v.findViewById(R.id.ubicacionactual);
-        ubicacionCercana=(TextView) v.findViewById(R.id.ubicacioncercana);
+        punto1=(TextView) v.findViewById(R.id.punto1);
+        punto2=(TextView) v.findViewById(R.id.punto2);
+        punto3=(TextView) v.findViewById(R.id.punto3);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         FragmentManager fm = getChildFragmentManager();
         mapFragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
         if(NetworkUtils.isConnected(getContext())){
-            progressView.setVisibility(View.VISIBLE);
-            progressView.startAnimation();
             mapFragment.getMapAsync(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -157,8 +158,7 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                 if (flag){
                     ubicacionActual.setText(strAdd);}
                 else{
-                    Log.i("ubicacion cercana","cercana");
-                    ubicacionCercana.setText(strAdd);
+                    punto1.setText(strAdd);
                 }
                 Log.w("My Current address", "" + strReturnedAddress.toString());
             } else {
@@ -178,8 +178,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     {
         mGoogleMap=googleMap;
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        progressView.stopAnimation();
-        progressView.setVisibility(View.INVISIBLE);
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -208,19 +206,15 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     @Override
     public void onConnected(Bundle bundle)
     {
-        Log.i("onC","");
-
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Log.i("if","");
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+               LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
 
     }
-
 
 
     @Override
@@ -231,7 +225,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     @Override
     public void onLocationChanged(Location location)
     {
-        Log.i("changed","changed");
         loc = new LatLng(location.getLatitude(),location.getLongitude());
         getCompleteAddressString(location.getLatitude(), location.getLongitude(), true);
         loc1.setLatitude(location.getLatitude());
@@ -261,9 +254,9 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         }
 
         protected void onPostExecute(Boolean result){
+            ArrayList<Marker> markers = new ArrayList<Marker>();
             super.onPostExecute(result);
             if (!result){
-
                 new MaterialDialog.Builder(getActivity())
                         .iconRes(R.drawable.ic_drawer)
                         .content("No se pudo obtener puntos de venta. Revisa tu conexión")
@@ -272,23 +265,44 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             }else{
                 try {
                     jArray = new JSONArray(consulta);
-                    Location location= new Location("Sin ubicación");
                     String local="Sin ubicación";
                     Float posicioncercana= 999999.589F;
                     for (int i = 0; i < jArray.length(); i++) {
+                        Marker marker = new Marker();
+                        Location location= new Location("Sin ubicación");
                         JSONObject json_data = jArray.getJSONObject(i);
+                        if(json_data.getInt("puntoObtencion")==1){
                         mGoogleMap.addMarker((new MarkerOptions().position(
                                 new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
-                                icon(BitmapDescriptorFactory.fromResource(R.drawable.puntosube)));
+                                icon(BitmapDescriptorFactory.fromResource(R.drawable.ptocompra)));}
+                        else{
+                            mGoogleMap.addMarker((new MarkerOptions().position(
+                                    new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
+                                    icon(BitmapDescriptorFactory.fromResource(R.drawable.ptocarga)));
+                        }
                         location.setLongitude(json_data.getDouble("longitud"));
                         location.setLatitude(json_data.getDouble("latitud"));
-
+                        marker.setDireccion(json_data.getString("direccion"));
+                        marker.setHorario(json_data.getString("horario"));
+                        marker.setUbicacion(location);
+                        markers.add(marker);
                         if(Float.compare(loc1.distanceTo(location),posicioncercana)<0){
                             posicioncercana=loc1.distanceTo(location);
-                            local=(json_data.getString("direccion"))+"\n"+(json_data.getString("horario"));
                         }
                     }
-                    ubicacionCercana.setText(local);
+
+                    Collections.sort(markers, new Comparator<Marker>() {
+                        @Override
+                        public int compare(Marker marker1, Marker marker2) {
+                            Log.i("comparacion",""+ marker1.getDireccion()+" "+ marker2.getDireccion());
+                            return Float.compare(loc1.distanceTo(marker1.getUbicacion()), loc1.distanceTo(marker2.getUbicacion()));
+                            //return Float.compare(loc1.distanceTo(marker1.getUbicacion()),loc1.distanceTo(marker2.getUbicacion()));
+                        }
+                    });
+
+                    punto1.setText(markers.get(1).getDireccion()+" "+markers.get(1).getHorario());
+                    punto2.setText(markers.get(2).getDireccion()+" "+markers.get(2).getHorario());
+                    punto3.setText(markers.get(3).getDireccion()+" "+markers.get(3).getHorario());
                 } catch (JSONException e) {
                     Log.e("log_tag", "Error parsing data " + e.toString());
                 }
@@ -331,15 +345,13 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
     {
-        Log.i("my",""+requestCode);
         switch (requestCode)
         {
             case MY_PERMISSIONS_REQUEST_LOCATION:
             {
                 // If request is cancelled, the result arrays are empty.
-                Log.i("my","");
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED )
-                {   Log.i("garnt","");
+                {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                     if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED )
@@ -349,10 +361,8 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                         // {
                         //      showGPSDisabledAlertToUser();
                         //  }
-                        Log.i("antes permiso","");
                         if (mGoogleApiClient == null)
                         {
-                            Log.i("despues permiso","");
                             buildGoogleApiClient();
                         }
                         mGoogleMap.setMyLocationEnabled(true);

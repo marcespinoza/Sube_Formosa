@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CircularReveal/CircularReveal.iml" filepath="$PROJECT_DIR$/CircularReveal/CircularReveal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ResideMenu/ResideMenu.iml" filepath="$PROJECT_DIR$/ResideMenu/ResideMenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/Sube_Formosa.iml" filepath="$PROJECT_DIR$/Sube_Formosa.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

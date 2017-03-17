@@ -1,1 +1,1 @@
-include ':app', ':CircularReveal'
+include ':app', ':ResideMenu'
