@@ -16,8 +16,8 @@ android {
         applicationId "com.sube.movil"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 21
-        versionName "3"
+        versionCode 22
+        versionName "3.1"
 
         multiDexEnabled true
     }
