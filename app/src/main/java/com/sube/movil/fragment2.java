@@ -1,6 +1,7 @@
 package com.sube.movil;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Marcelo on 11/04/2015.
  */
@@ -38,7 +41,8 @@ public class fragment2 extends Fragment {
     Parallax parallaxAdapter ;
     FloatingSearchView mSearchView;
     private List<PuntoVenta> orig;
-    String query [];
+    SharedPreferences prefs;
+    String restoredText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +55,8 @@ public class fragment2 extends Fragment {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         myRecycler.setLayoutManager(manager);
         myRecycler.setHasFixedSize(true);
+        prefs = getActivity().getSharedPreferences("ubicacion", MODE_PRIVATE);
+        restoredText = prefs.getString("provincia", null);
         setAdapter();
         makeJsonArrayRequest();
         setupFloatingSearch();
@@ -76,7 +82,12 @@ public class fragment2 extends Fragment {
 
         //Obtengo lista de puntos de ventas y recargas
         private void makeJsonArrayRequest() {
-           String url = "http://aquehorasale.webatu.com/private/subemovil.php";
+            String url;
+            if(restoredText.equals("Chaco")){
+                url = "http://subemovil.000webhostapp.com/private/chaco.php";}
+            else{
+                url = "http://subemovil.000webhostapp.com/private/formosa.php";
+            }
             Volley.newRequestQueue(getContext()).add(
                 new JsonRequest<JSONArray>(Request.Method.POST, url, null,
                         new Response.Listener<JSONArray>() {

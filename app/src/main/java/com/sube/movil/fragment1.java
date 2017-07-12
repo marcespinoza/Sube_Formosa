@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -26,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +64,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Marcelo on 10/04/2015.
  */
@@ -81,41 +85,86 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     LatLng loc;
     LocationRequest mLocationRequest;
     Snackbar snackbar;
+    CircularProgressView progressView;
+    View view1, view2;
+    SharedPreferences prefs;
+    String restoredText;
+   View coordinatorLayoutView;
+    View mapView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment1, null, false);
-        final View coordinatorLayoutView = v.findViewById(R.id.snackbarPosition);
+        coordinatorLayoutView = v.findViewById(R.id.snackbarPosition);
+        progressView = (CircularProgressView) v.findViewById(R.id.progress_view);
+        view1 = v.findViewById(R.id.view1);
+        view2 = v.findViewById(R.id.view3);
+        view1.setVisibility(View.GONE);
+        view2.setVisibility(View.GONE);
         ubicacionActual =(TextView) v.findViewById(R.id.ubicacionactual);
         punto1=(TextView) v.findViewById(R.id.punto1);
         punto2=(TextView) v.findViewById(R.id.punto2);
         punto3=(TextView) v.findViewById(R.id.punto3);
+        punto1.setVisibility(View.GONE);
+        punto2.setVisibility(View.GONE);
+        punto3.setVisibility(View.GONE);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         FragmentManager fm = getChildFragmentManager();
         mapFragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
-        if(NetworkUtils.isConnected(getContext())){
-            mapFragment.getMapAsync(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        prefs = getActivity().getSharedPreferences("ubicacion", MODE_PRIVATE);
+        restoredText = prefs.getString("provincia", null);
+        if (restoredText == null) {
+            new MaterialDialog.Builder(getContext())
+                    .title("Selecciona tu provincia")
+                    .items(R.array.provincia)
+                    .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                        @Override
+                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            SharedPreferences.Editor editor = prefs.edit();
+                            if (which==0){
+                            editor.putString("provincia", "Chaco");
+                            restoredText= "Chaco";}
+                            else
+                            {
+                                editor.putString("provincia", "Formosa");
+                                restoredText="Formosa";
+                            }
+                            editor.commit();
+                            showMap();
+                            return true;
+                        }
+                    })
+                    .positiveText("Seleccionar")
+                    .show();
+        }else
         {
-            checkLocationPermission();
-        }
-      }else{
-            snackbar=Snackbar.make(coordinatorLayoutView, "Revisa tu conexión a internet", Snackbar.LENGTH_LONG);
-            View snackBarView = snackbar.getView();
-            final int version = Build.VERSION.SDK_INT;
-            if (version >= 23) {
-                snackBarView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.material_red_600));
-            } else {
-                snackBarView.setBackgroundColor(getResources().getColor(R.color.material_red_600));
-            }
-            snackbar.show();
+            showMap();
         }
         return v;
     }
 
-
+   public void showMap(){
+       if(NetworkUtils.isConnected(getContext())){
+           mapFragment.getMapAsync(this);
+           mapView = mapFragment.getView();
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+           {
+               checkLocationPermission();
+           }
+       }else{
+           snackbar=Snackbar.make(coordinatorLayoutView, "Revisa tu conexión a internet", Snackbar.LENGTH_LONG);
+           View snackBarView = snackbar.getView();
+           final int version = Build.VERSION.SDK_INT;
+           if (version >= 23) {
+               snackBarView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.material_red_600));
+           } else {
+               snackBarView.setBackgroundColor(getResources().getColor(R.color.material_red_600));
+           }
+           snackbar.show();
+       }
+   }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
@@ -129,7 +178,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                 requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
-
             else
             {
                 // No explanation needed, we can request the permission.
@@ -186,11 +234,22 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                 buildGoogleApiClient();
                 mGoogleMap.setMyLocationEnabled(true);
             }
-        }
-        else
+        }else
         {
             buildGoogleApiClient();
             mGoogleMap.setMyLocationEnabled(true);
+        }
+        if (mapView != null &&
+                mapView.findViewById(Integer.parseInt("1")) != null) {
+            // Get the button view
+            View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+            // and next place it, on bottom right (as Google Maps app)
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                    locationButton.getLayoutParams();
+            // position on right bottom
+            layoutParams.addRule(RelativeLayout.ALIGN_TOP, 10);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            layoutParams.setMargins(40, 10, 30, 30);
         }
     }
 
@@ -245,7 +304,7 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-
+            progressView.startAnimation();
         }
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -256,6 +315,13 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         protected void onPostExecute(Boolean result){
             ArrayList<Marker> markers = new ArrayList<Marker>();
             super.onPostExecute(result);
+            progressView.stopAnimation();
+            progressView.setVisibility(View.GONE);
+            view1.setVisibility(View.VISIBLE);
+            view2.setVisibility(View.VISIBLE);
+            punto1.setVisibility(View.VISIBLE);
+            punto2.setVisibility(View.VISIBLE);
+            punto3.setVisibility(View.VISIBLE);
             if (!result){
                 new MaterialDialog.Builder(getActivity())
                         .iconRes(R.drawable.ic_drawer)
@@ -275,7 +341,11 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                         mGoogleMap.addMarker((new MarkerOptions().position(
                                 new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
                                 icon(BitmapDescriptorFactory.fromResource(R.drawable.ptocompra)));}
-                        else{
+                        else if(json_data.getInt("tas")==1){
+                            mGoogleMap.addMarker((new MarkerOptions().position(
+                                    new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
+                                    icon(BitmapDescriptorFactory.fromResource(R.drawable.ptotas)));
+                        }else{
                             mGoogleMap.addMarker((new MarkerOptions().position(
                                     new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
                                     icon(BitmapDescriptorFactory.fromResource(R.drawable.ptocarga)));
@@ -294,7 +364,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                     Collections.sort(markers, new Comparator<Marker>() {
                         @Override
                         public int compare(Marker marker1, Marker marker2) {
-                            Log.i("comparacion",""+ marker1.getDireccion()+" "+ marker2.getDireccion());
                             return Float.compare(loc1.distanceTo(marker1.getUbicacion()), loc1.distanceTo(marker2.getUbicacion()));
                             //return Float.compare(loc1.distanceTo(marker1.getUbicacion()),loc1.distanceTo(marker2.getUbicacion()));
                         }
@@ -313,7 +382,12 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     public Boolean obtenerMarkers(){
         try{
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://subemovil.000webhostapp.com/private/subemovil.php");
+            HttpPost httppost;
+            if(restoredText.equals("Chaco")){
+            httppost = new HttpPost("http://subemovil.000webhostapp.com/private/chaco.php");}
+            else{
+             httppost = new HttpPost("http://subemovil.000webhostapp.com/private/formosa.php");
+            }
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();

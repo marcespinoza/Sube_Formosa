@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#00695C"
+    android:background="#2586c2"
     android:weightSum="1">
 
      <TextView
@@ -12,47 +12,23 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp"
-         android:textSize="20dp"
+         android:textSize="25dp"
          android:textColor="#ECEFF1"
-        android:text="Centros de compra"/>
+        android:text="Ubicación"/>
 
     <TextView
+        android:id="@+id/miubicacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#B0BEC5"
-        android:text="Centro de Atencion SUBE"/>
-    <TextView
+        android:textColor="#000000"/>
+
+    <Button
+        android:text="Cambiar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#78909C"
-        android:text="Pringles y Rivadavia"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#B0BEC5"
-        android:text="Tribunal Administrativo de faltas (altos)"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#78909C"
-        android:text="San Martin 1061"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#B0BEC5"
-        android:text="Oficinas de ingresos municipales"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#78909C"
-        android:text="Fotheringham 1364"/>
+        android:id="@+id/cambiarUbicacion" />
 
     <ImageView
         android:layout_width="100dp"
@@ -82,12 +58,14 @@
             android:layout_height="wrap_content"
             android:text="Unite y mantenete al tanto de novedades y actualizaciones de la aplicación"/>
 
-        <com.beardedhen.androidbootstrap.AwesomeTextView
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/fa_text"
-            style="@style/wrapping_fa_text"
-            app:bootstrapBrand="primary"
+            style="@style/wrapping_button"
             app:fontAwesomeIcon="fa_exclamation_circle"
-            />
+            app:bootstrapBrand="primary"
+            app:roundedCorners="true"
+            android:layout_width="55dp"
+            android:layout_height="55dp" />
 
     </LinearLayout>
 

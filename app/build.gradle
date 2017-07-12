@@ -9,15 +9,15 @@ android {
             storePassword 'subemovil'
         }
     }
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.3"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.sube.movil"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 22
-        versionName "3.1"
+        versionCode 24
+        versionName "4.0"
 
         multiDexEnabled true
     }
@@ -68,7 +68,7 @@ dependencies {
     compile('com.github.vajro:MaterialDesignLibrary:1.6') {
         exclude group: 'com.nineoldandroids', module: 'library'
     }
-    compile('com.afollestad.material-dialogs:core:0.8.4.2@aar') {
+    compile('com.afollestad.material-dialogs:core:0.9.4.5@aar') {
         transitive = true
     }
     compile 'com.github.kanytu:android-parallax-recyclerview:v1.7'

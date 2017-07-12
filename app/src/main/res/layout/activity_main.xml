@@ -20,30 +20,29 @@
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#7B1FA2">
+            android:background="#2586c2">
 
             <Button
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/menu_selector"
                 android:id="@+id/title_bar_left_menu"
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginLeft="10dp"/>
 
-            <net.kianoni.fontloader.TextView
-                android:id="@+id/titulo"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="7dp"
-                android:text="Sube Movil"
-                android:textSize="24sp"
-                android:textColor="#fffdfdfd"
                 android:layout_gravity="center"
-                font:fontFile="fonts/RobotoCondensed-Bold.ttf"/>
+                android:background="@drawable/menu_icon"/>
 
             <Button
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/menu_selector"
                 android:id="@+id/title_bar_right_menu"
                 android:layout_gravity="right|center_vertical"

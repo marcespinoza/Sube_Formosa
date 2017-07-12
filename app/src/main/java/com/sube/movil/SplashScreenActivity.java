@@ -32,10 +32,10 @@ public class SplashScreenActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.splash_screen);
-        formosa=(TextView)findViewById(R.id.formosa);
-        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-        formosa.setTypeface(type);
-        formosa.startAnimation(AnimationUtils.loadAnimation(SplashScreenActivity.this, R.anim.fade_in));
+        //formosa=(TextView)findViewById(R.id.formosa);
+        //Typeface type = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
+        //formosa.setTypeface(type);
+        //formosa.startAnimation(AnimationUtils.loadAnimation(SplashScreenActivity.this, R.anim.fade_in));
 
         TimerTask task = new TimerTask() {
             @Override

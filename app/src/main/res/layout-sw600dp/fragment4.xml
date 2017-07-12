@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#00695C"
+    android:background="#2586c2"
     android:weightSum="1">
 
      <TextView
@@ -88,12 +88,15 @@
             android:layout_height="wrap_content"
             android:text="Unite y mantenete al tanto de novedades y actualizaciones de la aplicación"/>
 
-        <com.beardedhen.androidbootstrap.AwesomeTextView
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/fa_text"
-            style="@style/wrapping_fa_text"
-            app:bootstrapBrand="primary"
+            style="@style/wrapping_button"
             app:fontAwesomeIcon="fa_exclamation_circle"
-            />
+            app:bootstrapBrand="primary"
+            app:roundedCorners="true"
+            android:layout_width="95dp"
+            android:layout_height="95dp" />
 
     </LinearLayout>
 

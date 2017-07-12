@@ -59,7 +59,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fragment2 = new fragment2();
         if( savedInstanceState == null )
             changeFragment(new fragment1());
-        checkLocation();
+           checkLocation();
     }
 
     private void setUpMenu() {
