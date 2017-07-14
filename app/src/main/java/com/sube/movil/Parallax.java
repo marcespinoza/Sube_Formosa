@@ -15,34 +15,17 @@ import java.util.List;
 /**
  * Created by Marcelo on 04/09/2016.
  */
-public class Parallax extends ParallaxRecyclerAdapter implements Filterable {
+public class Parallax extends RecyclerView.Adapter<NoticiaViewHolder> implements Filterable {
 
     List <PuntoVenta> items, filterList;
     CustomFilter filter;
 
-    public Parallax(List data) {
-        super(data);
-        items=data;
-        filterList=data;
+    public Parallax(List <PuntoVenta> items) {
+        this.items=items;
+        filterList=items;
     }
 
-    @Override
-    public void onBindViewHolderImpl(RecyclerView.ViewHolder viewHolder, ParallaxRecyclerAdapter parallaxRecyclerAdapter, int i) {
-        ((NoticiaViewHolder)viewHolder).titulo.setText(items.get(i).getTitle());
-        ((NoticiaViewHolder)viewHolder).descripcion.setText(items.get(i).getDescription());
-    }
 
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolderImpl(ViewGroup viewGroup, ParallaxRecyclerAdapter parallaxRecyclerAdapter, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.puntoventa_item_layout, viewGroup, false);
-        return new NoticiaViewHolder(v,viewGroup.getContext());
-    }
-
-    @Override
-    public int getItemCountImpl(ParallaxRecyclerAdapter parallaxRecyclerAdapter) {
-        return items.size();
-    }
 
     @Override
     public Filter getFilter() {
@@ -53,4 +36,21 @@ public class Parallax extends ParallaxRecyclerAdapter implements Filterable {
         return filter;
     }
 
+    @Override
+    public NoticiaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.puntoventa_item_layout, parent, false);
+        return new NoticiaViewHolder(v,parent.getContext());
+    }
+
+    @Override
+    public void onBindViewHolder(NoticiaViewHolder viewHolder, int i) {
+        ((NoticiaViewHolder)viewHolder).titulo.setText(items.get(i).getTitle());
+        ((NoticiaViewHolder)viewHolder).descripcion.setText(items.get(i).getDescription());
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
 }

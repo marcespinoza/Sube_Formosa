@@ -35,4 +35,13 @@
         <item name="android:layout_marginRight">@dimen/micro_padding</item>
     </style>
 
+    <style name="Material.Drawable.Ripple.Touch" parent="Material.Drawable.Ripple">
+        <item name="rd_backgroundColor">#4c7ddf</item>
+        <item name="rd_backgroundAnimDuration">200</item>
+        <item name="rd_maxRippleRadius">48dp</item>
+        <item name="rd_rippleColor">#afaeae</item>
+        <item name="rd_rippleAnimDuration">300</item>
+        <item name="rd_rippleType">touch</item>
+    </style>
+
 </resources>

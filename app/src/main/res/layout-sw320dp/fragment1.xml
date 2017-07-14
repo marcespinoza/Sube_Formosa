@@ -82,7 +82,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="10dp"
+        android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:paddingTop="5dp">
 
         <ImageView
@@ -92,10 +97,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:text="Punto de carga"
+            android:text="Pto. de carga"
             android:textColor="#000000"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginLeft="5dp"
+            android:textSize="10sp"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -113,10 +119,11 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:text="Punto de obtención"
+                    android:layout_height="wrap_content"
+                    android:text="Pto. de obtención"
                     android:textColor="#000000"
-                    android:layout_marginLeft="5dp"/>
+                    android:layout_marginLeft="5dp"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
@@ -134,14 +141,17 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="15dp"
+                    android:layout_height="wrap_content"
                     android:text="Terminal automática"
                     android:textColor="#000000"
-                    android:layout_marginLeft="5dp"/>
+                    android:layout_marginLeft="5dp"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
     </LinearLayout>
+
+        </LinearLayout>
 
 
         <LinearLayout

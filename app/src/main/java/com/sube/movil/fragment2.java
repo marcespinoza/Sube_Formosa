@@ -4,6 +4,7 @@ package com.sube.movil;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.poliveira.parallaxrecyclerview.ParallaxRecyclerAdapter;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,12 +45,15 @@ public class fragment2 extends Fragment {
     private List<PuntoVenta> orig;
     SharedPreferences prefs;
     String restoredText;
+    CircularProgressView progressView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment2, container, false);
+        progressView = (CircularProgressView) rootView.findViewById(R.id.progress_view);
+        progressView.startAnimation();
         mSearchView = (FloatingSearchView) rootView.findViewById(R.id.floating_search_view);
         myRecycler = (RecyclerView) rootView.findViewById(R.id.myRecycler);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -92,9 +97,10 @@ public class fragment2 extends Fragment {
                 new JsonRequest<JSONArray>(Request.Method.POST, url, null,
                         new Response.Listener<JSONArray>() {
                             JSONObject jsonObject;
-
                             @Override
                             public void onResponse(JSONArray response) {
+                                progressView.stopAnimation();
+                                progressView.setVisibility(View.INVISIBLE);
                                     for(int i=0; i<response.length();i++){
                                         PuntoVenta puntoventa = new PuntoVenta();
                                         try {
@@ -136,13 +142,9 @@ public class fragment2 extends Fragment {
 
     private void setAdapter(){
         parallaxAdapter  = new Parallax(items) ;
-        parallaxAdapter .setParallaxHeader(LayoutInflater.from(getActivity()).inflate(R.layout.parallaxheader, myRecycler, false), myRecycler);
-        parallaxAdapter .setOnParallaxScroll(new ParallaxRecyclerAdapter.OnParallaxScroll() {
-            @Override
-            public void onParallaxScroll(float percentage, float offset, View parallax) {
-
-            }
-        });
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        myRecycler.setLayoutManager(mLayoutManager);
+        myRecycler.setItemAnimator(new DefaultItemAnimator());
         myRecycler.setAdapter(parallaxAdapter);
     }
 
