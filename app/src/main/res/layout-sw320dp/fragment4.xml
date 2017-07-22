@@ -98,8 +98,8 @@
 
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/about"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:padding="10dp"
             fancy:fb_defaultColor="#007ee5"
