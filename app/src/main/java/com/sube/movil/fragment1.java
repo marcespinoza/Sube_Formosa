@@ -123,13 +123,12 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                         @Override
                         public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                             SharedPreferences.Editor editor = prefs.edit();
-                            if (which==0){
-                            editor.putString("provincia", "Chaco");
-                            restoredText= "Chaco";}
-                            else
-                            {
-                                editor.putString("provincia", "Formosa");
-                                restoredText="Formosa";
+                            switch (which){
+                                case  0: editor.putString("provincia", "Chaco"); break;
+                                case  1: editor.putString("provincia", "Corrientes"); break;
+                                case  2: editor.putString("provincia", "Formosa"); break;
+                                case  3: editor.putString("provincia", "Entre rios"); break;
+                                case  4: editor.putString("provincia", "San luis"); break;
                             }
                             editor.commit();
                             showMap();
@@ -153,10 +152,10 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
            {
                checkLocationPermission();
            }
-       }else{
-           snackbar=Snackbar.make(coordinatorLayoutView, "Revisa tu conexión a internet", Snackbar.LENGTH_LONG);
-           View snackBarView = snackbar.getView();
-           final int version = Build.VERSION.SDK_INT;
+            }else{
+                snackbar=Snackbar.make(coordinatorLayoutView, "Revisa tu conexión a internet", Snackbar.LENGTH_LONG);
+                 View snackBarView = snackbar.getView();
+                 final int version = Build.VERSION.SDK_INT;
            if (version >= 23) {
                snackBarView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.material_red_600));
            } else {
@@ -198,11 +197,10 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             if (addresses != null) {
                 Address returnedAddress = addresses.get(0);
                 StringBuilder strReturnedAddress = new StringBuilder("");
-
-                for (int i = 0; i < returnedAddress.getMaxAddressLineIndex(); i++) {
-                    strReturnedAddress.append(returnedAddress.getAddressLine(i)+" ");
-                }
+                strReturnedAddress.append(returnedAddress.getAddressLine(1));
                 strAdd = strReturnedAddress.toString();
+
+                System.out.println("fdstrad"+strAdd);
                 if (flag){
                     ubicacionActual.setText(strAdd);}
                 else{
@@ -382,11 +380,13 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     public Boolean obtenerMarkers(){
         try{
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost;
-            if(restoredText.equals("Chaco")){
-            httppost = new HttpPost("http://subemovil.000webhostapp.com/private/chaco.php");}
-            else{
-             httppost = new HttpPost("http://subemovil.000webhostapp.com/private/formosa.php");
+            HttpPost httppost = null;
+            switch (restoredText){
+                case "Chaco": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/chaco.php"); break;
+                case "Corrientes": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/corrientes.php"); break;
+                case "Formosa": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/formosa.php"); break;
+                case "Entre rios": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/entre_rios.php"); break;
+                case "San luis": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/san_luis.php"); break;
             }
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);

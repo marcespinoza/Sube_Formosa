@@ -80,11 +80,12 @@ public class fragment4 extends Fragment {
                             @Override
                             public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                                 editor = prefs.edit();
-                                if (which==0){
-                                    editor.putString("provincia", "Chaco");}
-                                else
-                                {
-                                    editor.putString("provincia", "Formosa");
+                                switch (which){
+                                    case 0:editor.putString("provincia", "Chaco"); break;
+                                    case 1:editor.putString("provincia", "Corrientes"); break;
+                                    case 2:editor.putString("provincia", "Formosa"); break;
+                                    case 3:editor.putString("provincia", "Entre rios"); break;
+                                    case 4:editor.putString("provincia", "San luis"); break;
                                 }
                                 editor.commit();
                                 Intent i = getActivity().getBaseContext().getPackageManager()

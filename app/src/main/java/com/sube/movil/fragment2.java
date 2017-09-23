@@ -62,6 +62,8 @@ public class fragment2 extends Fragment {
         myRecycler.setHasFixedSize(true);
         prefs = getActivity().getSharedPreferences("ubicacion", MODE_PRIVATE);
         restoredText = prefs.getString("provincia", null);
+
+        Log.i("provinica",""+restoredText);
         setAdapter();
         makeJsonArrayRequest();
         setupFloatingSearch();
@@ -87,11 +89,13 @@ public class fragment2 extends Fragment {
 
         //Obtengo lista de puntos de ventas y recargas
         private void makeJsonArrayRequest() {
-            String url;
-            if(restoredText.equals("Chaco")){
-                url = "http://subemovil.000webhostapp.com/private/chaco.php";}
-            else{
-                url = "http://subemovil.000webhostapp.com/private/formosa.php";
+            String url = null;
+            switch (restoredText){
+                case "Chaco": url = "http://subemovil.000webhostapp.com/private/chaco.php"; break;
+                case "Corrientes": url = "http://subemovil.000webhostapp.com/private/corrientes.php"; break;
+                case "Formosa": url = "http://subemovil.000webhostapp.com/private/formosa.php"; break;
+                case "Entre rios": url = "http://subemovil.000webhostapp.com/private/entre_rios.php"; break;
+                case "San luis": url = "http://subemovil.000webhostapp.com/private/san_luis.php"; break;
             }
             Volley.newRequestQueue(getContext()).add(
                 new JsonRequest<JSONArray>(Request.Method.POST, url, null,
