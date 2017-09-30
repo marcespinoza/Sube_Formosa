@@ -52,6 +52,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,9 +89,10 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     CircularProgressView progressView;
     View view1, view2;
     SharedPreferences prefs;
-    String restoredText;
-   View coordinatorLayoutView;
+    String shared_provincia, shared_ciudad;
+    View coordinatorLayoutView;
     View mapView;
+    SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,24 +116,29 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         FragmentManager fm = getChildFragmentManager();
         mapFragment = (SupportMapFragment) fm.findFragmentById(R.id.map);
         prefs = getActivity().getSharedPreferences("ubicacion", MODE_PRIVATE);
-        restoredText = prefs.getString("provincia", null);
-        if (restoredText == null) {
+        shared_provincia = prefs.getString("provincia", null);
+        shared_ciudad = prefs.getString("ciudad", null);
+        if (shared_provincia == null) {
             new MaterialDialog.Builder(getContext())
                     .title("Selecciona tu provincia")
                     .items(R.array.provincia)
                     .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                         @Override
                         public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            SharedPreferences.Editor editor = prefs.edit();
+                            editor = prefs.edit();
                             switch (which){
-                                case  0: editor.putString("provincia", "Chaco"); break;
-                                case  1: editor.putString("provincia", "Corrientes"); break;
-                                case  2: editor.putString("provincia", "Formosa"); break;
-                                case  3: editor.putString("provincia", "Entre rios"); break;
-                                case  4: editor.putString("provincia", "San luis"); break;
+                                case 0:editor.putString("provincia", "Buenos Aires"); cargarCiudades(R.array.buenos_aires);break;
+                                case 1:editor.putString("provincia", "Capital Federal");cargarCiudades(R.array.capital_federal);break;
+                                case 2:editor.putString("provincia", "Catamarca");editor.putString("ciudad", ""); reiniciarApp();
+                                case 3:editor.putString("provincia", "Chaco");editor.putString("ciudad", ""); reiniciarApp();
+                                case 4:editor.putString("provincia", "Corrientes");editor.putString("ciudad", ""); reiniciarApp();
+                                case 5:editor.putString("provincia", "Entre Rios");editor.putString("ciudad", "");reiniciarApp();
+                                case 6:editor.putString("provincia", "Formosa"); editor.putString("ciudad", "");reiniciarApp();
+                                case 7:editor.putString("provincia", "Jujuy"); editor.putString("ciudad", "");reiniciarApp();
+                                case 8:editor.putString("provincia", "San Luis"); reiniciarApp();
+                                case 9:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
                             }
                             editor.commit();
-                            showMap();
                             return true;
                         }
                     })
@@ -142,6 +149,32 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             showMap();
         }
         return v;
+    }
+
+    private void reiniciarApp(){
+        Intent i = getActivity().getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage( getActivity().getBaseContext().getPackageName() );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        System.exit(0);
+    }
+
+    private void cargarCiudades(int provincia){
+        new MaterialDialog.Builder(getContext())
+                .title("Ciudad/Localidad")
+                .items(provincia)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        editor = prefs.edit();
+                        editor.putString("ciudad", String.valueOf(text));
+                        editor.commit();
+                        reiniciarApp();
+                        return true;
+                    }
+                })
+                .positiveText("Seleccionar")
+                .show();
     }
 
    public void showMap(){
@@ -194,19 +227,16 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
-            if (addresses != null) {
-                Address returnedAddress = addresses.get(0);
-                StringBuilder strReturnedAddress = new StringBuilder("");
-                strReturnedAddress.append(returnedAddress.getAddressLine(1));
-                strAdd = strReturnedAddress.toString();
-
-                System.out.println("fdstrad"+strAdd);
+            if (addresses != null && addresses.size() > 0) {
+                Address address = addresses.get(0);
+                StringBuilder sb = new StringBuilder();
+                strAdd =address.getThoroughfare()+" "+address.getSubThoroughfare();
                 if (flag){
                     ubicacionActual.setText(strAdd);}
                 else{
                     punto1.setText(strAdd);
                 }
-                Log.w("My Current address", "" + strReturnedAddress.toString());
+                Log.w("My Current address", "" + sb.toString());
             } else {
                 Log.w("My Current address", "No Address returned!");
             }
@@ -381,13 +411,19 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         try{
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = null;
-            switch (restoredText){
+            switch (shared_provincia){
+                case "Buenos Aires": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/buenos_aires.php"); break;
+                case "Capital Federal": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/capital_federal.php"); break;
+                case "Catamarca": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/catamarca.php"); break;
                 case "Chaco": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/chaco.php"); break;
                 case "Corrientes": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/corrientes.php"); break;
-                case "Formosa": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/formosa.php"); break;
                 case "Entre rios": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/entre_rios.php"); break;
-                case "San luis": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/san_luis.php"); break;
+                case "Formosa": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/formosa.php"); break;
+                case "Jujuy": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/jujuy.php"); break;
+                case "San Luis": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/san_luis.php"); break;
+                case "Santa Fe": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/santa_fe.php"); break;
             }
+            nameValuePairs.add(new BasicNameValuePair("ciudad", shared_ciudad));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();

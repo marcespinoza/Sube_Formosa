@@ -86,7 +86,29 @@
          android:layout_margin="10dp"
          android:text="Unite y mantenete al tanto de novedades y actualizaciones de la aplicación"/>
 
+        <com.brouding.blockbutton.BlockButton
+            app:pushDepthDp="2"
+            app:buttonColor="#e4571f"
+            app:buttonDisabledColor="#999999"
+            android:id="@+id/leer"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:text="Leer" />
+
+        </com.brouding.blockbutton.BlockButton>
 
  </LinearLayout>
 
@@ -97,22 +119,31 @@
         android:paddingBottom="20dp"
         android:orientation="vertical">
 
-        <mehdi.sakout.fancybuttons.FancyButton
-            android:id="@+id/about"
+        <com.brouding.blockbutton.BlockButton
+            app:pushDepthDp="2"
+            app:buttonColor="#4d8fda"
+            app:buttonDisabledColor="#999999"
+            android:id="@+id/acerca_de"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:padding="10dp"
-            fancy:fb_defaultColor="#007ee5"
-            fancy:fb_iconPaddingLeft="0dp"
-            fancy:fb_iconPaddingRight="0dp"
-            fancy:fb_focusColor="#313131"
-            fancy:fb_iconResource="@drawable/exclamation"
-            fancy:fb_radius="64dp"
-            fancy:fb_text=""
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="vertical"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true">
-        </mehdi.sakout.fancybuttons.FancyButton>
+            android:layout_centerHorizontal="true">>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="23dp"
+                android:text="Acerca de .." />
+
+        </com.brouding.blockbutton.BlockButton>
 
     </RelativeLayout>
 

@@ -12,4 +12,12 @@
     <string name="app_id">1953875844839491</string>
     <string name="icon_like">&#xf087;</string>
     <string name="exclamation">&#xf06a;</string>
+    <string name="leer">*Sube Móvil es una aplicacion independiente del organismo encargado
+    de administrar la tarjeta SUBE, por lo tanto las denuncias y/o reclamos deben ser realizadas
+    al 0800-777-7823. \n
+    *Los puntos de ventas, recargas, etc., son obtenidos de la página oficial. Si usted desea agregar alguno, envíe los datos
+    necesarios (direccion, horario de atención, punto de venta o recarga) y será agregado a la base de datos
+        de la aplicación Sube Móvil. (No a la página oficial) \n
+    *Sube Móvil no almacena ni utiliza los datos del usuario, ya sea ubicación o datos de inicio de sesión.</string>
+    <string name="hyper_link"><a href="http://www.google.com">Google</a></string>
 </resources>
