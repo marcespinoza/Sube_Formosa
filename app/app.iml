@@ -96,6 +96,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v13/25.3.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/26.1.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/26.1.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.volley/volley/1.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.bartoszlipinski/viewpropertyobjectanimator/1.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.beardedhen/androidbootstrap/2.3.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.brouding/android-block-button/0.1.2.1/jars" />
@@ -135,7 +136,6 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="library-1.0.19" level="project" />
     <orderEntry type="library" exported="" name="annotations-4.0.0-RC0" level="project" />
     <orderEntry type="library" exported="" name="floatingsearchview-2.0.3" level="project" />
     <orderEntry type="library" exported="" name="androidbootstrap-2.3.1" level="project" />
@@ -183,6 +183,7 @@
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-26.1.0" level="project" />
     <orderEntry type="library" exported="" name="fontloader-0.3.0" level="project" />
+    <orderEntry type="library" exported="" name="volley-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="org.apache.httpcomponents.httpclient_4.5.3" level="project" />
     <orderEntry type="library" exported="" name="android-shape-imageview-0.9.3" level="project" />
     <orderEntry type="module" module-name="ResideMenu" exported="" />

@@ -32,6 +32,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,11 +70,14 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -300,7 +314,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
-
     }
 
 
@@ -316,7 +329,9 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         getCompleteAddressString(location.getLatitude(), location.getLongitude(), true);
         loc1.setLatitude(location.getLatitude());
         loc1.setLongitude(location.getLongitude());
-        new Markers().execute();
+        //new Markers().execute();
+        progressView.startAnimation();
+        obtenerMarkers();
         mGoogleMap.addMarker(new MarkerOptions().position(loc));
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 15));
 
@@ -327,29 +342,10 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
 
     }
 
-    private class Markers extends AsyncTask<Void, Void, Boolean> {
 
-        @Override
-        protected void onPreExecute(){
-            super.onPreExecute();
-            progressView.startAnimation();
-        }
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            Boolean result = obtenerMarkers();
-            return result;
-        }
-
-        protected void onPostExecute(Boolean result){
+        protected void onPost(Boolean result){
             ArrayList<Marker> markers = new ArrayList<Marker>();
-            super.onPostExecute(result);
-            progressView.stopAnimation();
-            progressView.setVisibility(View.GONE);
-            view1.setVisibility(View.VISIBLE);
-            view2.setVisibility(View.VISIBLE);
-            punto1.setVisibility(View.VISIBLE);
-            punto2.setVisibility(View.VISIBLE);
-            punto3.setVisibility(View.VISIBLE);
+
             if (!result){
                 new MaterialDialog.Builder(getActivity())
                         .iconRes(R.drawable.ic_drawer)
@@ -358,22 +354,22 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                         .show();
             }else{
                 try {
-                    jArray = new JSONArray(consulta);
-                    String local="Sin ubicación";
-                    Float posicioncercana= 999999.589F;
+                    //jArray = new JSONArray(consulta);
+                    String local = "Sin ubicación";
+                    Float posicioncercana = 999999.589F;
                     for (int i = 0; i < jArray.length(); i++) {
                         Marker marker = new Marker();
-                        Location location= new Location("Sin ubicación");
+                        Location location = new Location("Sin ubicación");
                         JSONObject json_data = jArray.getJSONObject(i);
-                        if(json_data.getInt("puntoObtencion")==1){
-                        mGoogleMap.addMarker((new MarkerOptions().position(
-                                new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
-                                icon(BitmapDescriptorFactory.fromResource(R.drawable.ptocompra)));}
-                        else if(json_data.getInt("tas")==1){
+                        if (json_data.getInt("puntoObtencion") == 1) {
+                            mGoogleMap.addMarker((new MarkerOptions().position(
+                                    new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
+                                    icon(BitmapDescriptorFactory.fromResource(R.drawable.ptocompra)));
+                        } else if (json_data.getInt("tas") == 1) {
                             mGoogleMap.addMarker((new MarkerOptions().position(
                                     new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
                                     icon(BitmapDescriptorFactory.fromResource(R.drawable.ptotas)));
-                        }else{
+                        } else {
                             mGoogleMap.addMarker((new MarkerOptions().position(
                                     new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
                                     icon(BitmapDescriptorFactory.fromResource(R.drawable.ptocarga)));
@@ -384,8 +380,8 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                         marker.setHorario(json_data.getString("horario"));
                         marker.setUbicacion(location);
                         markers.add(marker);
-                        if(Float.compare(loc1.distanceTo(location),posicioncercana)<0){
-                            posicioncercana=loc1.distanceTo(location);
+                        if (Float.compare(loc1.distanceTo(location), posicioncercana) < 0) {
+                            posicioncercana = loc1.distanceTo(location);
                         }
                     }
 
@@ -396,59 +392,78 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                             //return Float.compare(loc1.distanceTo(marker1.getUbicacion()),loc1.distanceTo(marker2.getUbicacion()));
                         }
                     });
+                    progressView.stopAnimation();
+                    progressView.setVisibility(View.GONE);
+                    view1.setVisibility(View.VISIBLE);
+                    view2.setVisibility(View.VISIBLE);
+                    punto1.setVisibility(View.VISIBLE);
+                    punto2.setVisibility(View.VISIBLE);
+                    punto3.setVisibility(View.VISIBLE);
+                    if (markers.size() >= 1){
+                        punto1.setText(markers.get(0).getDireccion() + " " + markers.get(0).getHorario());
+                     }
+                    if (markers.size() >=2){
+                        punto2.setText(markers.get(1).getDireccion() + " " + markers.get(1).getHorario());
+                    }
+                    if (markers.size() >= 3){
+                        punto3.setText(markers.get(2).getDireccion() + " " + markers.get(2).getHorario());
+                    }
 
-                    punto1.setText(markers.get(1).getDireccion()+" "+markers.get(1).getHorario());
-                    punto2.setText(markers.get(2).getDireccion()+" "+markers.get(2).getHorario());
-                    punto3.setText(markers.get(3).getDireccion()+" "+markers.get(3).getHorario());
                 } catch (JSONException e) {
                     Log.e("log_tag", "Error parsing data " + e.toString());
                 }
             }
-        }    }
-
-
-    public Boolean obtenerMarkers(){
-        try{
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = null;
-            switch (shared_provincia){
-                case "Buenos Aires": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/buenos_aires.php"); break;
-                case "Capital Federal": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/capital_federal.php"); break;
-                case "Catamarca": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/catamarca.php"); break;
-                case "Chaco": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/chaco.php"); break;
-                case "Corrientes": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/corrientes.php"); break;
-                case "Entre rios": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/entre_rios.php"); break;
-                case "Formosa": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/formosa.php"); break;
-                case "Jujuy": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/jujuy.php"); break;
-                case "San Luis": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/san_luis.php"); break;
-                case "Santa Fe": httppost = new HttpPost("http://subemovil.000webhostapp.com/private/santa_fe.php"); break;
-            }
-            nameValuePairs.add(new BasicNameValuePair("ciudad", shared_ciudad));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            HttpResponse response = httpclient.execute(httppost);
-            HttpEntity entity = response.getEntity();
-            is = entity.getContent();
-        }catch(Exception e){
-            Log.e("log_tag", "Error in http connection " + e.toString());
         }
-//convert response to string
-        if(is!=null) {
-            try {
-                BufferedReader r = new BufferedReader(new InputStreamReader(is));
-                StringBuilder total = new StringBuilder();
-                String line;
-                while ((line = r.readLine()) != null) {
-                    total.append(line);
+
+
+    public void obtenerMarkers(){
+        String url = null;
+        switch (shared_provincia){
+            case "Buenos Aires": url = "http://subemovil.000webhostapp.com/private/buenos_aires.php"; break;
+            case "Capital Federal": url = "http://subemovil.000webhostapp.com/private/capital_federal.php"; break;
+            case "Catamarca": url = "http://subemovil.000webhostapp.com/private/catamarca.php"; break;
+            case "Chaco": url = "http://subemovil.000webhostapp.com/private/chaco.php"; break;
+            case "Corrientes": url = "http://subemovil.000webhostapp.com/private/corrientes.php"; break;
+            case "Entre rios": url = "http://subemovil.000webhostapp.com/private/entre_rios.php"; break;
+            case "Formosa": url = "http://subemovil.000webhostapp.com/private/formosa.php"; break;
+            case "Jujuy": url = "http://subemovil.000webhostapp.com/private/jujuy.php"; break;
+            case "San Luis": url = "http://subemovil.000webhostapp.com/private/san_luis.php"; break;
+            case "Santa Fe": url = "http://subemovil.000webhostapp.com/private/santa_fe.php"; break;
+        }
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        StringRequest sr = new StringRequest(Request.Method.POST,url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String respons) {
+                try {
+                    jArray = new JSONArray(respons);
+                    onPost(true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                is.close();
-                consulta = total.toString();
-            } catch (Exception e) {
-                Log.e("log_tag", "Error converting result " + e.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error",error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("ciudad",shared_ciudad);
+
+                return params;
             }
 
-            return true;
-        }else
-            return false;
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        queue.add(sr);
 
     }
 
