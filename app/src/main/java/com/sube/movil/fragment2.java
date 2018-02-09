@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.crashlytics.android.Crashlytics;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.poliveira.parallaxrecyclerview.ParallaxRecyclerAdapter;
 import org.json.JSONArray;
@@ -36,6 +38,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static android.R.attr.tag;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -67,7 +70,7 @@ public class fragment2 extends Fragment {
         myRecycler.setLayoutManager(manager);
         myRecycler.setHasFixedSize(true);
         prefs = getActivity().getSharedPreferences("ubicacion", MODE_PRIVATE);
-        provincia_shared = prefs.getString("provincia", null);
+        provincia_shared = prefs.getString("provincia", "");
         ciudad_shared = prefs.getString("ciudad", null);
         setAdapter();
         makeJsonArrayRequest();
@@ -99,14 +102,17 @@ public class fragment2 extends Fragment {
                 case "Capital Federal": url = "http://subemovil.000webhostapp.com/private/capital_federal.php"; break;
                 case "Catamarca": url = "http://subemovil.000webhostapp.com/private/catamarca.php"; break;
                 case "Chaco": url = "http://subemovil.000webhostapp.com/private/chaco.php"; break;
+                case "Chubut": url = "http://subemovil.000webhostapp.com/private/chubut.php"; break;
                 case "Corrientes": url = "http://subemovil.000webhostapp.com/private/corrientes.php"; break;
                 case "Entre rios": url = "http://subemovil.000webhostapp.com/private/entre_rios.php"; break;
                 case "Formosa": url = "http://subemovil.000webhostapp.com/private/formosa.php"; break;
                 case "Jujuy": url = "http://subemovil.000webhostapp.com/private/jujuy.php"; break;
+                case "Rio negro": url = "http://subemovil.000webhostapp.com/private/rio_negro.php"; break;
+                case "San Juan": url = "http://subemovil.000webhostapp.com/private/san_juan.php"; break;
                 case "San Luis": url = "http://subemovil.000webhostapp.com/private/san_luis.php"; break;
                 case "Santa Fe": url = "http://subemovil.000webhostapp.com/private/santa_fe.php"; break;
+                default: Toast.makeText(getActivity(),"Seleccione una provincia", Toast.LENGTH_SHORT);
             }
-
             RequestQueue queue = Volley.newRequestQueue(getContext());
             StringRequest sr = new StringRequest(Request.Method.POST,url, new Response.Listener<String>() {
                 @Override
@@ -136,7 +142,12 @@ public class fragment2 extends Fragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("error",error.getMessage());
+                    if(error.getMessage()==null){
+                        Toast.makeText(getContext(),"Falló la conexión, intente de nuevo", Toast.LENGTH_SHORT);
+                        Crashlytics.log(0, "on error", "Volleyerror");
+                    }
+                    else{
+                        Log.e("error",error.getMessage());}
                 }
             }){
                 @Override

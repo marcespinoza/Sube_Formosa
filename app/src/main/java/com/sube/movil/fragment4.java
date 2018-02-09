@@ -114,12 +114,15 @@ public class fragment4 extends Fragment {
                                     case 1:editor.putString("provincia", "Capital Federal");cargarCiudades(R.array.capital_federal);break;
                                     case 2:editor.putString("provincia", "Catamarca");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
                                     case 3:editor.putString("provincia", "Chaco");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
-                                    case 4:editor.putString("provincia", "Corrientes");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
-                                    case 5:editor.putString("provincia", "Entre Rios");editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
-                                    case 6:editor.putString("provincia", "Formosa"); editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
-                                    case 7:editor.putString("provincia", "Jujuy"); editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
-                                    case 8:editor.putString("provincia", "San Luis");  editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
-                                    case 9:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
+                                    case 4:editor.putString("provincia", "Chubut");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
+                                    case 5:editor.putString("provincia", "Corrientes");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
+                                    case 6:editor.putString("provincia", "Entre Rios");editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
+                                    case 7:editor.putString("provincia", "Formosa"); editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
+                                    case 8:editor.putString("provincia", "Jujuy"); editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
+                                    case 9:editor.putString("provincia", "Rio negro");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
+                                    case 10:editor.putString("provincia", "San Juan");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
+                                    case 11:editor.putString("provincia", "San Luis");  editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
+                                    case 12:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
                                 }
                                 editor.commit();
                                 return true;
@@ -160,22 +163,22 @@ public class fragment4 extends Fragment {
 
     protected void openFacebookPage(){
 
-        String facebookPageID = "1573880172901216";
-        String facebookUrl = "https://www.facebook.com/" + facebookPageID;
-        String facebookUrlScheme = "fb://page/" + facebookPageID;
-
+        String FACEBOOK_URL = "https://www.facebook.com/subemovil";
+        String FACEBOOK_PAGE_ID = "subemovil";
+        Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+        PackageManager packageManager = getContext().getPackageManager();
         try {
-            int versionCode = getContext().getPackageManager().getPackageInfo("com.facebook.katana", 0).versionCode;
-
-            if (versionCode >= 3002850) {
-                Uri uri = Uri.parse("fb://facewebmodal/f?href=" + facebookUrl);
-                startActivity(new Intent(Intent.ACTION_VIEW, uri));
-            } else {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrlScheme)));
+            int versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            if (versionCode >= 3002850) { //newer versions of fb app
+                facebookIntent.setData(Uri.parse("fb://facewebmodal/f?href=" + FACEBOOK_URL));
+                startActivity(facebookIntent);
+            } else { //older versions of fb app
+                facebookIntent.setData(Uri.parse("fb://page/" + FACEBOOK_PAGE_ID));
+                startActivity(facebookIntent);
             }
         } catch (PackageManager.NameNotFoundException e) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(facebookUrl)));
-
+            facebookIntent.setData(Uri.parse(FACEBOOK_URL));
+            startActivity(facebookIntent);//normal web url
         }
 
     }

@@ -1,19 +1,14 @@
 package com.sube.movil;
 
-import android.*;
-import android.Manifest;
-import android.app.Activity;
+
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -21,8 +16,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,16 +26,13 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -56,21 +46,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -87,12 +65,10 @@ import static android.content.Context.MODE_PRIVATE;
 public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    InputStream is;
+
     TextView ubicacionActual, punto1, punto2, punto3;
     GoogleMap mGoogleMap;
     SupportMapFragment mapFragment;
-    ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-    String consulta;
     JSONArray jArray;
     Location loc1 = new Location("");
     LocationManager locationManager;
@@ -114,15 +90,15 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
 
         View v = inflater.inflate(R.layout.fragment1, null, false);
         coordinatorLayoutView = v.findViewById(R.id.snackbarPosition);
-        progressView = (CircularProgressView) v.findViewById(R.id.progress_view);
+        progressView =  v.findViewById(R.id.progress_view);
         view1 = v.findViewById(R.id.view1);
         view2 = v.findViewById(R.id.view3);
         view1.setVisibility(View.GONE);
         view2.setVisibility(View.GONE);
-        ubicacionActual =(TextView) v.findViewById(R.id.ubicacionactual);
-        punto1=(TextView) v.findViewById(R.id.punto1);
-        punto2=(TextView) v.findViewById(R.id.punto2);
-        punto3=(TextView) v.findViewById(R.id.punto3);
+        ubicacionActual =v.findViewById(R.id.ubicacionactual);
+        punto1=v.findViewById(R.id.punto1);
+        punto2=v.findViewById(R.id.punto2);
+        punto3= v.findViewById(R.id.punto3);
         punto1.setVisibility(View.GONE);
         punto2.setVisibility(View.GONE);
         punto3.setVisibility(View.GONE);
@@ -143,14 +119,17 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                             switch (which){
                                 case 0:editor.putString("provincia", "Buenos Aires"); cargarCiudades(R.array.buenos_aires);break;
                                 case 1:editor.putString("provincia", "Capital Federal");cargarCiudades(R.array.capital_federal);break;
-                                case 2:editor.putString("provincia", "Catamarca");editor.putString("ciudad", ""); reiniciarApp();
-                                case 3:editor.putString("provincia", "Chaco");editor.putString("ciudad", ""); reiniciarApp();
-                                case 4:editor.putString("provincia", "Corrientes");editor.putString("ciudad", ""); reiniciarApp();
-                                case 5:editor.putString("provincia", "Entre Rios");editor.putString("ciudad", "");reiniciarApp();
-                                case 6:editor.putString("provincia", "Formosa"); editor.putString("ciudad", "");reiniciarApp();
-                                case 7:editor.putString("provincia", "Jujuy"); editor.putString("ciudad", "");reiniciarApp();
-                                case 8:editor.putString("provincia", "San Luis"); reiniciarApp();
-                                case 9:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
+                                case 2:editor.putString("provincia", "Catamarca");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
+                                case 3:editor.putString("provincia", "Chaco");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
+                                case 4:editor.putString("provincia", "Chubut");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
+                                case 5:editor.putString("provincia", "Corrientes");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
+                                case 6:editor.putString("provincia", "Entre Rios");editor.putString("ciudad", "");editor.commit();reiniciarApp();
+                                case 7:editor.putString("provincia", "Formosa"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
+                                case 8:editor.putString("provincia", "Jujuy"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
+                                case 9:editor.putString("provincia", "Rio negro");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
+                                case 10:editor.putString("provincia", "San Juan");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
+                                case 11:editor.putString("provincia", "San Luis"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
+                                case 12:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
                             }
                             editor.commit();
                             return true;
@@ -258,6 +237,7 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             e.printStackTrace();
             Log.w("My Current address", "Canont get Address!");
         }
+        Crashlytics.logException(new Exception("Locale null"));
         return strAdd;
     }
 
@@ -281,8 +261,7 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             buildGoogleApiClient();
             mGoogleMap.setMyLocationEnabled(true);
         }
-        if (mapView != null &&
-                mapView.findViewById(Integer.parseInt("1")) != null) {
+        if (mapView != null && mapView.findViewById(Integer.parseInt("1")) != null) {
             // Get the button view
             View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
             // and next place it, on bottom right (as Google Maps app)
@@ -308,8 +287,8 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     public void onConnected(Bundle bundle)
     {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setInterval(30000);
+        mLocationRequest.setFastestInterval(30000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
@@ -326,7 +305,12 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     public void onLocationChanged(Location location)
     {
         loc = new LatLng(location.getLatitude(),location.getLongitude());
-        getCompleteAddressString(location.getLatitude(), location.getLongitude(), true);
+        if(location!=null){
+        getCompleteAddressString(location.getLatitude(), location.getLongitude(), true);}
+        else{
+            Toast.makeText(getActivity(),
+                    "Sin ubicación", Toast.LENGTH_SHORT);
+        }
         loc1.setLatitude(location.getLatitude());
         loc1.setLongitude(location.getLongitude());
         //new Markers().execute();
@@ -341,8 +325,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
-
-
         protected void onPost(Boolean result){
             ArrayList<Marker> markers = new ArrayList<Marker>();
 
@@ -354,7 +336,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                         .show();
             }else{
                 try {
-                    //jArray = new JSONArray(consulta);
                     String local = "Sin ubicación";
                     Float posicioncercana = 999999.589F;
                     for (int i = 0; i < jArray.length(); i++) {
@@ -394,18 +375,18 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                     });
                     progressView.stopAnimation();
                     progressView.setVisibility(View.GONE);
-                    view1.setVisibility(View.VISIBLE);
-                    view2.setVisibility(View.VISIBLE);
-                    punto1.setVisibility(View.VISIBLE);
-                    punto2.setVisibility(View.VISIBLE);
-                    punto3.setVisibility(View.VISIBLE);
                     if (markers.size() >= 1){
+                        punto1.setVisibility(View.VISIBLE);
                         punto1.setText(markers.get(0).getDireccion() + " " + markers.get(0).getHorario());
                      }
                     if (markers.size() >=2){
+                        view1.setVisibility(View.VISIBLE);
+                        punto2.setVisibility(View.VISIBLE);
                         punto2.setText(markers.get(1).getDireccion() + " " + markers.get(1).getHorario());
                     }
                     if (markers.size() >= 3){
+                        view2.setVisibility(View.VISIBLE);
+                        punto3.setVisibility(View.VISIBLE);
                         punto3.setText(markers.get(2).getDireccion() + " " + markers.get(2).getHorario());
                     }
 
@@ -423,10 +404,13 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             case "Capital Federal": url = "http://subemovil.000webhostapp.com/private/capital_federal.php"; break;
             case "Catamarca": url = "http://subemovil.000webhostapp.com/private/catamarca.php"; break;
             case "Chaco": url = "http://subemovil.000webhostapp.com/private/chaco.php"; break;
+            case "Chubut": url = "http://subemovil.000webhostapp.com/private/chubut.php"; break;
             case "Corrientes": url = "http://subemovil.000webhostapp.com/private/corrientes.php"; break;
             case "Entre rios": url = "http://subemovil.000webhostapp.com/private/entre_rios.php"; break;
             case "Formosa": url = "http://subemovil.000webhostapp.com/private/formosa.php"; break;
             case "Jujuy": url = "http://subemovil.000webhostapp.com/private/jujuy.php"; break;
+            case "Rio negro": url = "http://subemovil.000webhostapp.com/private/rio_negro.php"; break;
+            case "San Juan": url = "http://subemovil.000webhostapp.com/private/san_juan.php"; break;
             case "San Luis": url = "http://subemovil.000webhostapp.com/private/san_luis.php"; break;
             case "Santa Fe": url = "http://subemovil.000webhostapp.com/private/santa_fe.php"; break;
         }
@@ -436,8 +420,11 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             @Override
             public void onResponse(String respons) {
                 try {
+                    if(respons!=null){
                     jArray = new JSONArray(respons);
-                    onPost(true);
+                    onPost(true);}else{
+                        onPost(false);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -445,7 +432,11 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("error",error.getMessage());
+                if(error.getMessage()==null){
+                    Toast.makeText(getContext(),"Falló la conexión, intente de nuevo", Toast.LENGTH_SHORT);
+                }
+                else{
+                Log.e("error",error.getMessage());}
             }
         }){
             @Override
@@ -481,11 +472,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                     // contacts-related task you need to do.
                     if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED )
                     {
-
-                        //   if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-                        // {
-                        //      showGPSDisabledAlertToUser();
-                        //  }
                         if (mGoogleApiClient == null)
                         {
                             buildGoogleApiClient();
@@ -496,7 +482,7 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                 else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(getActivity(), "permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Debe otorgar permisos", Toast.LENGTH_LONG).show();
                 }
                 return;
             }

@@ -13,6 +13,8 @@ import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,16 +28,13 @@ public class SplashScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // Set portrait orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Hide title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.splash_screen);
-        //formosa=(TextView)findViewById(R.id.formosa);
-        //Typeface type = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf");
-        //formosa.setTypeface(type);
-        //formosa.startAnimation(AnimationUtils.loadAnimation(SplashScreenActivity.this, R.anim.fade_in));
 
         TimerTask task = new TimerTask() {
             @Override

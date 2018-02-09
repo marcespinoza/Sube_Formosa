@@ -15,12 +15,14 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.crashlytics.android.Crashlytics;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import org.json.JSONArray;
 
 import hotchemi.android.rate.AppRate;
 import hotchemi.android.rate.OnClickButtonListener;
+import io.fabric.sdk.android.Fabric;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener , ListInterface{
@@ -53,14 +55,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     }
                 })
                 .monitor();
+
         // Show a dialog if meets conditions
         AppRate.showRateDialogIfMeetsConditions(this);
         setUpMenu();
+        Fabric.with(this, new Crashlytics());
         fragment2 = new fragment2();
         if( savedInstanceState == null )
             changeFragment(new fragment1());
            checkLocation();
     }
+
 
     private void setUpMenu() {
 
@@ -87,12 +92,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         contacto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-                sendIntent.setType("plain/text");
-                sendIntent.setData(Uri.parse("marceloespinoza00@gmail.com"));
-                sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Sube Movil");
-                startActivity(sendIntent);
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.putExtra(Intent.EXTRA_EMAIL, "marceloespinoza00@gmail.com");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Sube Móvil");
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
         compartir.setOnClickListener(new View.OnClickListener() {

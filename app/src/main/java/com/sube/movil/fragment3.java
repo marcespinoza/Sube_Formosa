@@ -33,7 +33,7 @@ public class fragment3 extends Fragment  {
         final WebView webView = (WebView) rootView.findViewById(R.id.webPage);
         final CircularProgressView progressView = (CircularProgressView) rootView.findViewById(R.id.progress_view);
         progressView.startAnimation();
-        webView.loadUrl("https://www.sube.gob.ar/login.aspx");
+        webView.loadUrl("https://tarjetasube.sube.gob.ar/subeweb/WebForms/Account/Views/Login.aspx");
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
@@ -50,10 +50,12 @@ public class fragment3 extends Fragment  {
                 super.onPageFinished(view, url);
                 webView.loadUrl(
                         "javascript:(function() { " +
-                                "var element = document.getElementById('barraCyan');"
-                                + "element.parentNode.removeChild(element);" + "var element2 = document.getElementsByClassName('container-fluid')[0].style.display='none';" +
-                                "var element3 = document.getElementsByClassName('login')[0].style.display='none';" +
-                                "var element3 = document.getElementsByClassName('login')[1].style.display='none';" +
+                                "var element = document.getElementById('footer2');" +
+                                "element.parentNode.removeChild(element);" +
+                                "document.getElementsByClassName('well p-x-3 p-y-2')[0].style.display='block';" +
+                                "document.getElementsByClassName('jumbotron login-bg')[0].style.display='none';" +
+                                "document.getElementsByClassName('main-footer sticky-footer')[0].style.display='none';" +
+                                "document.getElementsByClassName('main-footer sticky-footer')[0].style.display='none';" +
                                 "})()");
                 progressView.stopAnimation();
                 progressView.setVisibility(View.INVISIBLE);

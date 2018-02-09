@@ -1,11 +1,21 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     signingConfigs {
         config {
             keyAlias 'subemovil'
             keyPassword 'subemovil'
-            storeFile file('D:/Android/Sube Fsa/subemovil.jks')
+            storeFile file('F:/Android/Sube Fsa/subemovil.jks')
             storePassword 'subemovil'
         }
     }
@@ -16,8 +26,8 @@ android {
         applicationId "com.sube.movil"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 27
-        versionName "4.3"
+        versionCode 35
+        versionName "5.1"
 
         multiDexEnabled true
     }
@@ -47,6 +57,7 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
+    maven { url 'https://maven.fabric.io/public' }
 }
 android {
     packagingOptions {
@@ -83,10 +94,12 @@ dependencies {
     compile('com.github.championswimmer:Android-SocialButtons:1.0') {
         exclude group: 'com.nineoldandroids', module: 'library'
     }
-    compile files('libs/org.apache.httpcomponents.httpclient_4.5.3.jar')
     compile project(':ResideMenu')
     compile 'com.github.medyo:fancybuttons:1.8.3'
     compile 'com.brouding:android-block-button:0.1.2.1'
     compile 'com.github.marcoscgdev:HeaderDialog:1.0.5'
     compile 'com.brouding:android-simple-dialog:0.3.0'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }
