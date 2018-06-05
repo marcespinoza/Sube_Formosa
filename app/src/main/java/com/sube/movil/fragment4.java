@@ -119,10 +119,12 @@ public class fragment4 extends Fragment {
                                     case 6:editor.putString("provincia", "Entre Rios");editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
                                     case 7:editor.putString("provincia", "Formosa"); editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
                                     case 8:editor.putString("provincia", "Jujuy"); editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
-                                    case 9:editor.putString("provincia", "Rio negro");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
-                                    case 10:editor.putString("provincia", "San Juan");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
-                                    case 11:editor.putString("provincia", "San Luis");  editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
-                                    case 12:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
+                                    case 9:editor.putString("provincia", "Neuquen"); editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
+                                    case 10:editor.putString("provincia", "Rio negro");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
+                                    case 11:editor.putString("provincia", "San Juan");editor.putString("ciudad", "");editor.commit(); reiniciarApp();break;
+                                    case 12:editor.putString("provincia", "San Luis");  editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
+                                    case 13:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
+                                    case 14:editor.putString("provincia", "Tierra del Fuego");  editor.putString("ciudad", "");editor.commit();reiniciarApp();break;
                                 }
                                 editor.commit();
                                 return true;

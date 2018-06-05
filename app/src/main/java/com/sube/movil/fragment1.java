@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -32,8 +33,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.brouding.simpledialog.SimpleDialog;
 import com.crashlytics.android.Crashlytics;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -57,6 +63,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import khangtran.preferenceshelper.PreferencesHelper;
+
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -65,7 +73,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-
+    private AdView mAdView;
     TextView ubicacionActual, punto1, punto2, punto3;
     GoogleMap mGoogleMap;
     SupportMapFragment mapFragment;
@@ -88,7 +96,13 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment1, null, false);
+        View v = inflater.inflate(R.layout.fragment1, container, false);
+        PreferencesHelper.initHelper(getActivity());
+        aviso();
+        MobileAds.initialize(getActivity(), "ca-app-pub-1750234237560957~5991299413");
+        mAdView = v.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         coordinatorLayoutView = v.findViewById(R.id.snackbarPosition);
         progressView =  v.findViewById(R.id.progress_view);
         view1 = v.findViewById(R.id.view1);
@@ -126,10 +140,12 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                                 case 6:editor.putString("provincia", "Entre Rios");editor.putString("ciudad", "");editor.commit();reiniciarApp();
                                 case 7:editor.putString("provincia", "Formosa"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
                                 case 8:editor.putString("provincia", "Jujuy"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
-                                case 9:editor.putString("provincia", "Rio negro");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
-                                case 10:editor.putString("provincia", "San Juan");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
-                                case 11:editor.putString("provincia", "San Luis"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
-                                case 12:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
+                                case 9:editor.putString("provincia", "Neuquen"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
+                                case 10:editor.putString("provincia", "Rio negro");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
+                                case 11:editor.putString("provincia", "San Juan");editor.putString("ciudad", "");editor.commit(); reiniciarApp();
+                                case 12:editor.putString("provincia", "San Luis"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
+                                case 13:editor.putString("provincia", "Santa Fe"); cargarCiudades(R.array.santa_fe); break;
+                                case 14:editor.putString("provincia", "Tierra del Fuego"); editor.putString("ciudad", "");editor.commit();reiniciarApp();
                             }
                             editor.commit();
                             return true;
@@ -142,6 +158,26 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             showMap();
         }
         return v;
+    }
+
+    public void aviso(){
+        int intValue = PreferencesHelper.getInstance().getIntValue("aviso", 0);
+        if(intValue==0){
+            new SimpleDialog.Builder(getActivity())
+                    .setTitle("Importante")
+                    .setContent("Sube Móvil es una aplicación independiente del organismo oficial " +
+                            "que maneja la sube, por lo tanto la demora en la actualización del saldo no depende de la misma. " +
+                            "Si desea enviar alguna queja o reclamo debe hacerlo a facebook/tarjetasube o al 0800-777-7823.", 3)
+                    .setBtnConfirmText("Entiendo")
+                    .onConfirm(new SimpleDialog.BtnCallback() {
+                        @Override
+                        public void onClick(@NonNull SimpleDialog dialog, @NonNull SimpleDialog.BtnAction which) {
+                            PreferencesHelper.getInstance().setValue("aviso", 1);
+                        }
+                    })
+                    .setBtnCancelTextColor("#555555")
+                    .show();
+        }
     }
 
     private void reiniciarApp(){
@@ -336,7 +372,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                         .show();
             }else{
                 try {
-                    String local = "Sin ubicación";
                     Float posicioncercana = 999999.589F;
                     for (int i = 0; i < jArray.length(); i++) {
                         Marker marker = new Marker();
@@ -370,7 +405,6 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
                         @Override
                         public int compare(Marker marker1, Marker marker2) {
                             return Float.compare(loc1.distanceTo(marker1.getUbicacion()), loc1.distanceTo(marker2.getUbicacion()));
-                            //return Float.compare(loc1.distanceTo(marker1.getUbicacion()),loc1.distanceTo(marker2.getUbicacion()));
                         }
                     });
                     progressView.stopAnimation();
@@ -406,13 +440,15 @@ public class fragment1 extends Fragment implements OnMapReadyCallback, GoogleApi
             case "Chaco": url = "http://subemovil.000webhostapp.com/private/chaco.php"; break;
             case "Chubut": url = "http://subemovil.000webhostapp.com/private/chubut.php"; break;
             case "Corrientes": url = "http://subemovil.000webhostapp.com/private/corrientes.php"; break;
-            case "Entre rios": url = "http://subemovil.000webhostapp.com/private/entre_rios.php"; break;
+            case "Entre Rios": url = "http://subemovil.000webhostapp.com/private/entre_rios.php"; break;
             case "Formosa": url = "http://subemovil.000webhostapp.com/private/formosa.php"; break;
             case "Jujuy": url = "http://subemovil.000webhostapp.com/private/jujuy.php"; break;
+            case "Neuquen": url = "http://subemovil.000webhostapp.com/private/neuquen.php"; break;
             case "Rio negro": url = "http://subemovil.000webhostapp.com/private/rio_negro.php"; break;
             case "San Juan": url = "http://subemovil.000webhostapp.com/private/san_juan.php"; break;
             case "San Luis": url = "http://subemovil.000webhostapp.com/private/san_luis.php"; break;
             case "Santa Fe": url = "http://subemovil.000webhostapp.com/private/santa_fe.php"; break;
+            case "Tierra del Fuego": url = "http://subemovil.000webhostapp.com/private/tierra_del_fuego.php"; break;
         }
 
         RequestQueue queue = Volley.newRequestQueue(getContext());

@@ -7,8 +7,9 @@
         <item name="rd_cornerRadius">0dp</item>
     </style>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Item" parent="">
@@ -43,5 +44,7 @@
         <item name="rd_rippleAnimDuration">300</item>
         <item name="rd_rippleType">touch</item>
     </style>
+
+
 
 </resources>

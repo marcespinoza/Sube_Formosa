@@ -20,4 +20,5 @@
         de la aplicación Sube Móvil. (No a la página oficial) \n
     *Sube Móvil no almacena ni utiliza los datos del usuario, ya sea ubicación o datos de inicio de sesión.</string>
     <string name="hyper_link"><a href="http://www.google.com">Google</a></string>
+    <string name="aviso_login">Sube Móvil no almacena ni \nutiliza sus datos de inicio de sesión</string>
 </resources>

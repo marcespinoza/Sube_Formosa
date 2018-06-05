@@ -107,10 +107,12 @@ public class fragment2 extends Fragment {
                 case "Entre rios": url = "http://subemovil.000webhostapp.com/private/entre_rios.php"; break;
                 case "Formosa": url = "http://subemovil.000webhostapp.com/private/formosa.php"; break;
                 case "Jujuy": url = "http://subemovil.000webhostapp.com/private/jujuy.php"; break;
+                case "Neuquen": url = "http://subemovil.000webhostapp.com/private/neuquen.php"; break;
                 case "Rio negro": url = "http://subemovil.000webhostapp.com/private/rio_negro.php"; break;
                 case "San Juan": url = "http://subemovil.000webhostapp.com/private/san_juan.php"; break;
                 case "San Luis": url = "http://subemovil.000webhostapp.com/private/san_luis.php"; break;
                 case "Santa Fe": url = "http://subemovil.000webhostapp.com/private/santa_fe.php"; break;
+                case "Tierra del Fuego": url = "http://subemovil.000webhostapp.com/private/tierra_del_fuego.php"; break;
                 default: Toast.makeText(getActivity(),"Seleccione una provincia", Toast.LENGTH_SHORT);
             }
             RequestQueue queue = Volley.newRequestQueue(getContext());

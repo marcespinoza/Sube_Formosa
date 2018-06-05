@@ -16,8 +16,12 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.MobileAds;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
+import com.sube.movil.Views.cargar_saldo;
+import com.sube.movil.Views.fragment3;
+
 import org.json.JSONArray;
 
 import hotchemi.android.rate.AppRate;
@@ -34,17 +38,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ResideMenuItem saldo;
     private ResideMenuItem contacto;
     private ResideMenuItem compartir;
+    private ResideMenuItem cargar_saldo;
     fragment2 fragment2;
     LocationManager lm;
-
+    private static Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
         AppRate.with(this)//Llamo ventana para calificar aplicacion
-                .setInstallDays(0) // default 10, 0 means install day.
-                .setLaunchTimes(3) // default 10
+                .setInstallDays(2) // default 10, 0 means install day.
+                .setLaunchTimes(9) // default 10
                 .setRemindInterval(1) // default 1
                 .setShowLaterButton(true) // default true
                 .setDebug(false) // default false
@@ -83,12 +89,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         contacto = new ResideMenuItem(this, R.drawable.contacto,"Contacto");
         compartir = new ResideMenuItem(this, R.drawable.compartir,"Compartí");
         saldo= new ResideMenuItem(this,R.drawable.horarios, "Mi saldo");
-
+        cargar_saldo = new ResideMenuItem(this,R.drawable.horarios, "Cargar saldo");
 
         mapa.setOnClickListener(this);
         centro_ventas.setOnClickListener(this);
         misube.setOnClickListener(this);
         saldo.setOnClickListener(this);
+        cargar_saldo.setOnClickListener(this);
         contacto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +122,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(misube, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(mapa, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(cargar_saldo, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(centro_ventas, ResideMenu.DIRECTION_RIGHT);
         resideMenu.addMenuItem(contacto, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(compartir,ResideMenu.DIRECTION_RIGHT);
@@ -151,7 +159,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }else if (view == saldo) {
             changeFragment(new fragment3());
         }else if (view == misube) {
-            changeFragment(new fragment4());}
+            changeFragment(new fragment4());
+        }else if (view == cargar_saldo) {
+        changeFragment(new cargar_saldo());
+    }
         resideMenu.closeMenu();
     }
 
@@ -211,6 +222,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     public void onCreateList(JSONArray list) {
+    }
 
+
+    public static Context getContext() {
+        return context;
     }
 }
