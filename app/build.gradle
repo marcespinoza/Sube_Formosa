@@ -19,8 +19,7 @@ android {
             storePassword 'subemovil'
         }
     }
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 27
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.sube.movil"
@@ -37,12 +36,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
             applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    output.outputFile = new File(output.outputFile.parent,
-                            output.outputFile.name.replace("-release", "sube_movil")
-                            //for Debug use output.outputFile = new File(output.outputFile.parent,
-                            //                             output.outputFile.name.replace("-debug", "-" + formattedDate)
-                    )
+                variant.outputs.all { output ->
+                    outputFileName = "${variant.name}-${variant.versionName}.apk"
                 }
             }
             debuggable false
@@ -71,44 +66,49 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:design:26.1.0'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.google.android.gms:play-services-maps:15.0.1'
-    compile 'com.google.android.gms:play-services-location:15.0.1'
-    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
-    compile 'com.android.support:cardview-v7:26.+'
-    compile 'com.android.support:recyclerview-v7:26.1.0'
-    compile('com.github.vajro:MaterialDesignLibrary:1.6') {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:design:27.0.1'
+    implementation 'com.android.support:appcompat-v7:27.0.1'
+    implementation 'com.android.support:cardview-v7:27.0.1'
+    implementation 'com.android.support:recyclerview-v7:27.0.1'
+    implementation 'com.android.support:support-v13:27.0.1'
+    implementation 'com.android.support:percent:27.0.1'
+    implementation "com.android.support:customtabs:27.0.1"
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+
+    implementation('com.github.vajro:MaterialDesignLibrary:1.6') {
         exclude group: 'com.nineoldandroids', module: 'library'
     }
-    compile('com.afollestad.material-dialogs:core:0.9.4.5@aar') {
+    implementation('com.afollestad.material-dialogs:core:0.9.4.5@aar') {
         transitive = true
     }
-    compile 'com.github.kanytu:android-parallax-recyclerview:v1.7'
-    compile 'net.kianoni:fontloader:0.3.0'
-    compile 'com.github.rey5137:material:1.2.4'
-    compile 'com.github.hotchemi:android-rate:1.0.1'
-    compile 'org.jsoup:jsoup:1.10.2'
-    compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
-    compile 'com.github.arimorty:floatingsearchview:2.0.3'
-    compile 'com.beardedhen:androidbootstrap:2.3.1'
-    compile 'com.yarolegovich:lovely-dialog:1.0.4'
-    compile 'com.android.volley:volley:1.0.0'
-    compile('com.github.championswimmer:Android-SocialButtons:1.0') {
+    implementation 'com.github.kanytu:android-parallax-recyclerview:v1.7'
+    implementation 'net.kianoni:fontloader:0.3.0'
+    implementation 'com.github.rey5137:material:1.2.4'
+    implementation 'com.github.hotchemi:android-rate:1.0.1'
+    implementation 'org.jsoup:jsoup:1.10.2'
+    implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
+    implementation 'com.github.arimorty:floatingsearchview:2.0.3'
+    implementation 'com.beardedhen:androidbootstrap:2.3.1'
+    implementation 'com.yarolegovich:lovely-dialog:1.0.4'
+    implementation 'com.android.volley:volley:1.0.0'
+    implementation('com.github.championswimmer:Android-SocialButtons:1.0') {
         exclude group: 'com.nineoldandroids', module: 'library'
     }
-    compile project(':ResideMenu')
-    compile 'com.github.medyo:fancybuttons:1.8.3'
-    compile 'com.brouding:android-block-button:0.1.2.1'
-    compile 'com.github.marcoscgdev:HeaderDialog:1.0.5'
-    compile 'com.brouding:android-simple-dialog:0.3.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    implementation project(':ResideMenu')
+    implementation 'com.github.medyo:fancybuttons:1.8.3'
+    implementation 'com.brouding:android-block-button:0.1.2.1'
+    implementation 'com.github.marcoscgdev:HeaderDialog:1.0.5'
+    implementation 'com.brouding:android-simple-dialog:0.3.0'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
-    compile 'com.github.faruktoptas:FancyShowCaseView:1.0.0'
-    compile 'com.github.dimorinny:show-case-card-view:0.0.4'
-    compile 'com.google.android.gms:play-services-ads:15.0.0'
-    compile 'com.github.tntkhang:preferences-helper:1.1.0'
-    compile ('com.mercadopago:sdk:2.3.6@aar') { transitive = true }
+    implementation 'com.github.faruktoptas:FancyShowCaseView:1.0.0'
+    implementation 'com.github.dimorinny:show-case-card-view:0.0.4'
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
+    implementation 'com.github.tntkhang:preferences-helper:1.1.0'
+    implementation 'com.github.ankitdubey021:MySnack:2.2'
+    implementation 'com.mercadopago:sdk:3.8.1'
 }

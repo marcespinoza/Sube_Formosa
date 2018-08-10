@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="provincia">
+        <item>Buenos Aires</item>
+        <item>Capital Federal</item>
+        <item>Catamarca</item>
+        <item>Chaco</item>
+        <item>Chubut</item>
+        <item>Corrientes</item>
+        <item>Entre Rios</item>
+        <item>Formosa</item>
+        <item>Jujuy</item>
+        <item>Neuquen</item>
+        <item>Rio negro</item>
+        <item>San Juan</item>
+        <item>San Luis</item>
+        <item>Santa Fe</item>
+        <item>Tierra del Fuego</item>
+    </string-array>
+
+    <string-array name="capital_federal">
+        <item>AGRONOMIA</item>
+        <item>ALMAGRO</item>
+        <item>BALVANERA</item>
+        <item> BARRACAS</item>
+        <item> BELGRANO</item>
+        <item> BOEDO</item>
+        <item> CABALLITO</item>
+        <item> CHACARITA</item>
+        <item>COGHLAN</item>
+        <item> COLEGIALES</item>
+        <item> CONSTITUCION</item>
+        <item> FLORES</item>
+        <item> FLORESTA</item>
+        <item>LA BOCA</item>
+        <item>LA PATERNAL</item>
+        <item>LINIERS</item>
+        <item> MATADEROS</item>
+        <item> MONTE CASTRO</item>
+        <item> MONTSERRAT</item>
+        <item> NUEVA POMPEYA</item>
+        <item>NUNIEZ</item>
+        <item>PALERMO</item>
+        <item>PARQUE AVELLANEDA</item>
+        <item> PARQUE CHACABUCO</item>
+        <item> PARQUE CHAS</item>
+        <item> PARQUE PATRICIOS</item>
+        <item>PUERTO MADERO</item>
+        <item>RECOLETA</item>
+        <item> RETIRO</item>
+        <item>SAAVEDRA</item>
+        <item>SAN CRISTOBAL</item>
+        <item>SAN NICOLAS</item>
+        <item>SAN TELMO</item>
+        <item>VELEZ SARSFIELD</item>
+        <item>VERSALLES</item>
+        <item> VILLA CRESPO</item>
+        <item> VILLA DEL PARQUE</item>
+        <item>VILLA DEVOTO</item>
+        <item>VILLA GENERAL MITRE</item>
+        <item> VILLA LUGANO</item>
+        <item>VILLA LURO</item>
+        <item>VILLA ORTUZAR</item>
+        <item> VILLA PUEYRREDON</item>
+        <item>VILLA REAL</item>
+        <item>VILLA RIACHUELO</item>
+        <item>VILLA SANTA RITA</item>
+        <item> VILLA SOLDATI</item>
+        <item>VILLA URQUIZA</item>
+    </string-array>
+
+    <string-array name="buenos_aires">
+        <item>11 DE SEPTIEMBRE</item>
+        <item>20 DE JUNIO</item>
+        <item>9 DE ABRIL</item>
+        <item>ABASTO</item>
+        <item>ACASSUSO</item>
+        <item>ADROGUE</item>
+        <item>ALBERTI</item>
+        <item>ALDO BONZI</item>
+        <item>ALEJANDRO KORN</item>
+        <item>ALEJANDRO PETION</item>
+        <item>ALMIRANTE BROWN</item>
+        <item>ALTO LOS CARDALES</item>
+        <item>ANGEL ETCHEVERRY</item>
+        <item>ARANA</item>
+        <item>ARTURO SEGUI</item>
+        <item>ATLANTIDA</item>
+        <item>AVELLANEDA</item>
+        <item>BAHIA BLANCA</item>
+        <item>BANFIELD</item>
+        <item>BARRIO EL TALADRO</item>
+        <item>BARRIO ESTACION CAMET</item>
+        <item>BARRIO PARQUE GENERAL SAN MARTIN</item>
+        <item>BATAN</item>
+        <item>BECCAR</item>
+        <item>BELEN DE ESCOBAR</item>
+        <item>BELLA VISTA</item>
+        <item>BENAVIDEZ</item>
+        <item>BERAZATEGUI</item>
+        <item>BERISSO</item>
+        <item>BERNAL</item>
+        <item>BERNAL ESTE</item>
+        <item>BERNAL OESTE</item>
+        <item>BILLINGHURST</item>
+        <item>BOSQUES</item>
+        <item>BOULOGNE</item>
+        <item>BURZACO</item>
+        <item>CANUELAS</item>
+        <item>CAMPANA</item>
+        <item>CAMPO DE MAYO</item>
+        <item>CANNIG</item>
+        <item>CANNING</item>
+        <item>CAPILLA DEL SENIOR</item>
+        <item>CARAPACHAY</item>
+        <item>CARLOS SPEGAZZINI</item>
+        <item>CARMEN DE ARECO</item>
+        <item>CARMEN DE PATAGONES</item>
+        <item>CASEROS</item>
+        <item>CASTELAR</item>
+        <item>CENTRO AGRICOLA EL PATO</item>
+        <item>CHASCOMUS</item>
+        <item>CHURRUCA</item>
+        <item>CITY BELL</item>
+        <item>CIUDAD EVITA</item>
+        <item>CIUDAD JARDIN LOMAS DEL PALOMAR</item>
+        <item>CIUDAD MADERO</item>
+        <item>CIUDADELA</item>
+        <item>CLAYPOLE</item>
+        <item>COLONIA HINOJO</item>
+        <item>COLONIA SAN MIGUEL</item>
+        <item>CONESA</item>
+        <item>CORONEL BRANDSEN</item>
+        <item>COUNTRY CLUB EL JAGÜEL</item>
+        <item>CRUCESITA</item>
+        <item>CUARTEL V</item>
+        <item>DEL VISO</item>
+        <item>DIQUE LUJAN</item>
+        <item>DOCK SUD</item>
+        <item>DOMSELAAR</item>
+        <item>DON BOSCO</item>
+        <item>DON ORIONE</item>
+        <item>DON TORCUATO</item>
+        <item>DON TORCUATO ESTE</item>
+        <item>EL JAGUEL</item>
+        <item>EL LIBERTADOR</item>
+        <item>EL PALOMAR</item>
+        <item>EL PELIGRO</item>
+        <item>EL RETIRO</item>
+        <item>EL TALAR</item>
+        <item>ENSENADA</item>
+        <item>ESTEBAN ECHEVERRIA</item>
+        <item>EZEIZA</item>
+        <item>EZPELETA</item>
+        <item>EZPELETA ESTE</item>
+        <item>EZPELETA OESTE</item>
+        <item>FATIMA</item>
+        <item>FLORENCIO VARELA</item>
+        <item>FLORIDA</item>
+        <item>FLORIDA OESTE</item>
+        <item>FRANCISCO ALVAREZ</item>
+        <item>GARIN</item>
+        <item>GENERAL DANIEL CERRI (EST. GENERAL CERRI)</item>
+        <item>GENERAL LAS HERAS</item>
+        <item>GENERAL PACHECO</item>
+        <item>GENERAL RODRIGUEZ</item>
+        <item>GENERAL ROJO</item>
+        <item>GENERAL SAN MARTIN</item>
+        <item>GERLI</item>
+        <item>GLEW</item>
+        <item>GOBERNADOR COSTA</item>
+        <item>GONZALEZ CATAN</item>
+        <item>GOWLAND</item>
+        <item>GRAND BOURG</item>
+        <item>GREGORIO DE LAFERRERE</item>
+        <item>GUERNICA</item>
+        <item>GUILLERMO E HUDSON</item>
+        <item>HAEDO</item>
+        <item>HINOJO</item>
+        <item>HURLINGHAM</item>
+        <item>IGNACIO CORREAS</item>
+        <item>INGENIERO ADOLFO SOURDEAUX</item>
+        <item>INGENIERO ALLAN</item>
+        <item>INGENIERO BUDGE</item>
+        <item>INGENIERO MASCHWITZ</item>
+        <item>INGENIERO WHITE</item>
+        <item>IRINEO PORTELA</item>
+        <item>ISIDRO CASANOVA</item>
+        <item>ISLAS</item>
+        <item>ITUZAINGO</item>
+        <item>JOAQUIN GORINA</item>
+        <item>JOSE CLEMENTE PAZ</item>
+        <item>JOSE HERNANDEZ</item>
+        <item>JOSE INGENIEROS</item>
+        <item>JOSE LEON SUAREZ</item>
+        <item>JOSE MARIA EZEIZA</item>
+        <item>JOSE MARIA JAUREGUI</item>
+        <item>JOSE MARMOL</item>
+        <item>JUAN MARIA GUTIERREZ</item>
+        <item>LA CAPILLA</item>
+        <item>LA CUMBRE</item>
+        <item>LA EMILIA</item>
+        <item>LA FRATERNIDAD</item>
+        <item>LA LONJA</item>
+        <item>LA LUCILA</item>
+        <item>LA PLATA</item>
+        <item>LA REJA</item>
+        <item>LA UNION</item>
+        <item>LANUS</item>
+        <item>LAS MARIANAS</item>
+        <item>LAS TONINAS</item>
+        <item>LIBERTAD</item>
+        <item>LIMA</item>
+        <item>LISANDRO OLMOS ETCHEVERRY</item>
+        <item>LLAVALLOL</item>
+        <item>LOBOS</item>
+        <item>LOMA HERMOSA</item>
+        <item>LOMAS DE ZAMORA</item>
+        <item>LOMAS DEL MIRADOR</item>
+        <item>LONGCHAMPS</item>
+        <item>LOS CARDALES</item>
+        <item>LOS HORNOS</item>
+        <item>LOS POLVORINES</item>
+        <item>LUIS GUILLON</item>
+        <item>LUJAN</item>
+        <item>LUJAN (AFUERAS)</item>
+        <item>MAGDALENA</item>
+        <item>MALVINAS ARGENTINAS</item>
+        <item>MANUEL ALBERTI</item>
+        <item>MANUEL B GONNET</item>
+        <item>MANZANARES</item>
+        <item>MAQUINISTA F SAVIO</item>
+        <item>MAQUINISTA F SAVIO (PILAR)</item>
+        <item>MAR AZUL</item>
+        <item>MAR DE AJO</item>
+        <item>MAR DE COBO</item>
+        <item>MAR DE LAS PAMPAS</item>
+        <item>MAR DEL PLATA</item>
+        <item>MAR DEL TUYU - COSTA DEL ESTE</item>
+        <item>MARCOS PAZ</item>
+        <item>MARIANO ACOSTA</item>
+        <item>MARTIN CORONADO</item>
+        <item>MARTINEZ</item>
+        <item>MATHEU</item>
+        <item>MAXIMO PAZ</item>
+        <item>MELCHOR ROMERO</item>
+        <item>MERCEDES</item>
+        <item>MERLO</item>
+        <item>MINISTRO RIVADAVIA</item>
+        <item>MIRAMAR</item>
+        <item>MONTE CHINGOLO</item>
+        <item>MONTE GRANDE</item>
+        <item>MORENO</item>
+        <item>MORON</item>
+        <item>MUNIIZ</item>
+        <item>MUNRO</item>
+        <item>NAVARRO</item>
+        <item>NECOCHEA</item>
+        <item>NECOCHEA - QUEQUEN</item>
+        <item>OLAVARRIA</item>
+        <item>OLIVERA</item>
+        <item>OLIVOS</item>
+        <item>OPEN DOOR</item>
+        <item>OSTENDE</item>
+        <item>PABLO NOGUES</item>
+        <item>PABLO PODESTA</item>
+        <item>PARADA ROBLES</item>
+        <item>PARQUE SAN MARTIN</item>
+        <item>PASO DEL REY</item>
+        <item>PAVON</item>
+        <item>PERGAMINO</item>
+        <item>PILAR</item>
+        <item>PINAMAR</item>
+        <item>PINIEYRO</item>
+        <item>PLATANOS</item>
+        <item>PONTEVEDRA</item>
+        <item>PRESIDENTE DERQUI</item>
+        <item>PRESIDENTE PERON</item>
+        <item>PUNTA ALTA (EST ALMIRANTE SOLIER)</item>
+        <item>PUNTA LARA</item>
+        <item>QUEQUEN</item>
+        <item>QUILMES</item>
+        <item>QUILMES OESTE</item>
+        <item>RAFAEL CALZADA</item>
+        <item>RAFAEL CASTILLO</item>
+        <item>RAMOS MEJIA</item>
+        <item>RANELAGH</item>
+        <item>REMEDIOS DE ESCALADA</item>
+        <item>RICARDO ROJAS</item>
+        <item>RINCON DE MILBERG</item>
+        <item>RINGUELET</item>
+        <item>RIO TALA</item>
+        <item>SALTO</item>
+        <item>SAN ANDRES</item>
+        <item>SAN ANDRES DE GILES</item>
+        <item>SAN ANTONIO DE ARECO</item>
+        <item>SAN ANTONIO DE PADUA</item>
+        <item>SAN BERNARDO</item>
+        <item>SAN CARLOS</item>
+        <item>SAN CLEMENTE DEL TUYU</item>
+        <item>SAN FERNANDO</item>
+        <item>SAN FRANCISCO SOLANO</item>
+        <item>SAN ISIDRO</item>
+        <item>SAN JOSE</item>
+        <item>SAN JUSTO</item>
+        <item>SAN LORENZO</item>
+        <item>SAN MIGUEL</item>
+        <item>SAN MIGUEL DEL MONTE (EST. MONTE)</item>
+        <item>SAN NICOLAS</item>
+        <item>SAN NICOLAS DE LOS ARROYOS</item>
+        <item>SAN VICENTE</item>
+        <item>SANTA CLARA DEL MAR</item>
+        <item>SANTA ROSA</item>
+        <item>SANTA TERESITA</item>
+        <item>SANTA TERESITA - MAR DEL TUYU</item>
+        <item>SANTOS LUGARES</item>
+        <item>SARANDI</item>
+        <item>SIERRA CHICA</item>
+        <item>SIERRA DE LOS PADRES</item>
+        <item>SIERRAS BAYAS</item>
+        <item>SOURIGUES</item>
+        <item>TABLADA</item>
+        <item>TAPIALES</item>
+        <item>TEMPERLEY</item>
+        <item>TIGRE</item>
+        <item>TOLOSA</item>
+        <item>TORRES</item>
+        <item>TORTUGUITAS</item>
+        <item>TORTUGUITAS (PILAR)</item>
+        <item>TRES DE FEBRERO</item>
+        <item>TRISTAN SUAREZ</item>
+        <item>TRONCOS DEL TALAR</item>
+        <item>TRUJUI</item>
+        <item>TURDERA</item>
+        <item>URIBELARREA</item>
+        <item>VALENTIN ALSINA</item>
+        <item>VALERIA DEL MAR</item>
+        <item>VERONICA</item>
+        <item>VICENTE LOPEZ</item>
+        <item>VICTORIA</item>
+        <item>VILLA ADELINA</item>
+        <item>VILLA ALFREDO FORTABAT</item>
+        <item>VILLA ASTOLFI</item>
+        <item>VILLA BALLESTER</item>
+        <item>VILLA BOSCH</item>
+        <item>VILLA CENTENARIO</item>
+        <item>VILLA DE MAYO</item>
+        <item>VILLA DOMINICO</item>
+        <item>VILLA EDUARDO MADERO</item>
+        <item>VILLA ELISA</item>
+        <item>VILLA ELVIRA</item>
+        <item>VILLA ESPANIA</item>
+        <item>VILLA FIORITO</item>
+        <item>VILLA GESELL</item>
+        <item>VILLA GOBERNADOR UDAONDO</item>
+        <item>VILLA LA FLORIDA</item>
+        <item>VILLA LIBERTAD</item>
+        <item>VILLA LUZURIAGA</item>
+        <item>VILLA LYNCH</item>
+        <item>VILLA MAIPU</item>
+        <item>VILLA MARTELLI</item>
+        <item>VILLA RAFFO</item>
+        <item>VILLA RAMALLO</item>
+        <item>VILLA ROSA</item>
+        <item>VILLA SAENZ PE¿</item>
+        <item>VILLA SAN ANDRES</item>
+        <item>VILLA SAN LUIS</item>
+        <item>VILLA SANTOS TESEI</item>
+        <item>VILLA SARMIENTO</item>
+        <item>VILLA VATTEONE</item>
+        <item>VIRREY DEL PINO</item>
+        <item>VIRREYES</item>
+        <item>WILDE</item>
+        <item>WILLIAM C. MORRIS</item>
+        <item>ZARATE</item>
+        <item>ZEBALLOS</item>
+        <item>ZELAYA</item>
+    </string-array>
+
+    <string-array name="santa_fe">
+        <item>ALVEAR</item>
+        <item>ANDINO</item>
+        <item>ARROYO SECO</item>
+        <item>CANIADA DE GOMEZ</item>
+        <item>CAPITAN BERMUDEZ</item>
+        <item>CARCARANIA</item>
+        <item>CASILDA</item>
+        <item>EMPALME VILLA CONSTITUCION</item>
+        <item>FIGHIERA</item>
+        <item>FRAY LUIS BELTRAN</item>
+        <item>FUNES</item>
+        <item>GALVEZ</item>
+        <item>GENERAL LAGOS</item>
+        <item>GRANADERO BAIGORRIA</item>
+        <item>IBARLUCEA</item>
+        <item>PAVON</item>
+        <item>PEREZ</item>
+        <item>PUEBLO ESTHER</item>
+        <item>PUERTO GRAL.SAN MARTIN</item>
+        <item>RECREO</item>
+        <item>RICARDONE</item>
+        <item>ROLDAN</item>
+        <item>ROSARIO</item>
+        <item>SAN JAVIER</item>
+        <item>SAN JOSE DEL RINCON</item>
+        <item>SAN LORENZO</item>
+        <item>SANTA FE</item>
+        <item>SANTO TOME</item>
+        <item>SAUCE VIEJO</item>
+        <item>SOLDINI</item>
+        <item>TIMBUES</item>
+        <item>VENADO TUERTO</item>
+        <item>VERA</item>
+        <item>VILLA CONSTITUCION</item>
+        <item>VILLA GOBERNADOR GALVEZ</item>
+    </string-array>
+
+</resources>

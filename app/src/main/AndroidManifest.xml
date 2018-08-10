@@ -35,7 +35,10 @@
         <activity android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent"/>
-
+        <meta-data
+            tools:replace="android:value"
+            android:name="android.support.VERSION"
+            android:value="25.3.1" />
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data

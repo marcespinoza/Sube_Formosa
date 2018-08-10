@@ -21,4 +21,7 @@
     *Sube Móvil no almacena ni utiliza los datos del usuario, ya sea ubicación o datos de inicio de sesión.</string>
     <string name="hyper_link"><a href="http://www.google.com">Google</a></string>
     <string name="aviso_login">Sube Móvil no almacena ni \nutiliza sus datos de inicio de sesión</string>
+    <string name="aviso_carga_saldo">IMPORTANTE \nSube Móvil utiliza la api de MercadoPago para realizar la carga de su tarjeta SUBE,
+        por lo tanto esta aplicación no accede a los datos de su tarjeta de crédito o débito.\nRecuerde que luego de realizar la carga de saldo por este medio, usted debe acercarse a una TERMINAL AUTOMATICA para que el mismo sea acreditado
+    a su tarjeta.</string>
 </resources>

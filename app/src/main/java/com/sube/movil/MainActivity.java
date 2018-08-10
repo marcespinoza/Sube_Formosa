@@ -16,13 +16,20 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.ads.MobileAds;
+import com.mercadopago.constants.PaymentMethods;
+import com.mercadopago.constants.PaymentTypes;
+import com.mercadopago.constants.Sites;
+import com.mercadopago.core.MercadoPagoCheckout;
+import com.mercadopago.model.Item;
+import com.mercadopago.preferences.CheckoutPreference;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
-import com.sube.movil.Views.cargar_saldo;
+import com.sube.movil.Views.CargaSaldo;
 import com.sube.movil.Views.fragment3;
 
 import org.json.JSONArray;
+
+import java.math.BigDecimal;
 
 import hotchemi.android.rate.AppRate;
 import hotchemi.android.rate.OnClickButtonListener;
@@ -161,7 +168,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }else if (view == misube) {
             changeFragment(new fragment4());
         }else if (view == cargar_saldo) {
-        changeFragment(new cargar_saldo());
+            changeFragment(new CargaSaldo());
     }
         resideMenu.closeMenu();
     }

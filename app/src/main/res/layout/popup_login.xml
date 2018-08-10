@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="300dp"
+    android:background="@color/material_grey_400"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/tipo_documento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:minWidth="128dp"
+        android:layout_marginTop="15dp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginTop="15dp">
+        <EditText android:id="@+id/usuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="N documento"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!-- Password Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        app:passwordToggleEnabled="true"
+        android:layout_marginTop="15dp">
+        <EditText android:id="@+id/clave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Clave"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/aceptar"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/buttonstyle"
+            android:layout_marginRight="2dp"
+            android:text="Aceptar"/>
+
+        <Button
+            android:id="@+id/cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="2dp"
+            android:background="@drawable/buttonstyle"
+            android:text="Cancelar"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/aviso_login"/>
+
+</LinearLayout>
