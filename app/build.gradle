@@ -1,32 +1,31 @@
 buildscript {
     repositories {
-        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
     }
 }
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
+apply plugin: 'kotlin-android'
+
 
 android {
     signingConfigs {
         config {
             keyAlias 'subemovil'
             keyPassword 'subemovil'
-            storeFile file('F:/Android/Sube Fsa/subemovil.jks')
+            storeFile file('/home/marcelo/android_projects/subemovil.jks')
             storePassword 'subemovil'
         }
     }
-    compileSdkVersion 27
+    compileSdkVersion 33
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.sube.movil"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 39
-        versionName "5.5"
+        minSdkVersion 29
+        targetSdkVersion 33
+        versionCode 59
+        versionName "15"
 
         multiDexEnabled true
     }
@@ -42,11 +41,21 @@ android {
             }
             debuggable false
         }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
     }
     productFlavors {
     }
+    defaultConfig {
+        multiDexEnabled true
+    }
     dexOptions {
         javaMaxHeapSize "4g"
+    }
+    aaptOptions {
+        cruncherEnabled = false
     }
 }
 repositories {
@@ -55,7 +64,6 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
-    maven { url 'https://maven.fabric.io/public' }
 }
 android {
     packagingOptions {
@@ -67,33 +75,32 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:design:27.0.1'
-    implementation 'com.android.support:appcompat-v7:27.0.1'
-    implementation 'com.android.support:cardview-v7:27.0.1'
-    implementation 'com.android.support:recyclerview-v7:27.0.1'
-    implementation 'com.android.support:support-v13:27.0.1'
-    implementation 'com.android.support:percent:27.0.1'
-    implementation "com.android.support:customtabs:27.0.1"
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
-    implementation 'com.google.android.gms:play-services-location:15.0.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'androidx.percentlayout:percentlayout:1.0.0'
+    implementation 'androidx.browser:browser:1.5.0'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
 
     implementation('com.github.vajro:MaterialDesignLibrary:1.6') {
         exclude group: 'com.nineoldandroids', module: 'library'
     }
-    implementation('com.afollestad.material-dialogs:core:0.9.4.5@aar') {
-        transitive = true
-    }
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
     implementation 'com.github.kanytu:android-parallax-recyclerview:v1.7'
     implementation 'net.kianoni:fontloader:0.3.0'
     implementation 'com.github.rey5137:material:1.2.4'
     implementation 'com.github.hotchemi:android-rate:1.0.1'
-    implementation 'org.jsoup:jsoup:1.10.2'
+    implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     implementation 'com.github.arimorty:floatingsearchview:2.0.3'
     implementation 'com.beardedhen:androidbootstrap:2.3.1'
     implementation 'com.yarolegovich:lovely-dialog:1.0.4'
-    implementation 'com.android.volley:volley:1.0.0'
+    implementation 'com.android.volley:volley:1.2.1'
     implementation('com.github.championswimmer:Android-SocialButtons:1.0') {
         exclude group: 'com.nineoldandroids', module: 'library'
     }
@@ -102,13 +109,14 @@ dependencies {
     implementation 'com.brouding:android-block-button:0.1.2.1'
     implementation 'com.github.marcoscgdev:HeaderDialog:1.0.5'
     implementation 'com.brouding:android-simple-dialog:0.3.0'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true;
-    }
     implementation 'com.github.faruktoptas:FancyShowCaseView:1.0.0'
     implementation 'com.github.dimorinny:show-case-card-view:0.0.4'
-    implementation 'com.google.android.gms:play-services-ads:15.0.1'
+    implementation 'com.google.android.gms:play-services-ads:22.0.0'
     implementation 'com.github.tntkhang:preferences-helper:1.1.0'
     implementation 'com.github.ankitdubey021:MySnack:2.2'
-    implementation 'com.mercadopago:sdk:3.8.1'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
+    implementation "androidx.core:core-splashscreen:1.0.0"
+    implementation "androidx.multidex:multidex:2.0.1"
+
+
 }

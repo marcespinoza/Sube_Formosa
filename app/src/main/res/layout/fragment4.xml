@@ -1,95 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#00695C"
-    android:weightSum="1">
+    android:background="#ffffff"
+    android:weightSum="3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
      <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp"
-         android:textSize="20dp"
-         android:textColor="#ECEFF1"
-        android:text="Centros de compra"/>
+         android:textSize="25dp"
+         android:textColor="#000000"
+        android:text="Ubicación"/>
 
     <TextView
+        android:id="@+id/miubicacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:textColor="#B0BEC5"
-        android:text="Centro de Atencion SUBE"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#78909C"
-        android:text="Pringles y Rivadavia"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#B0BEC5"
-        android:text="Tribunal Administrativo de faltas (altos)"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#78909C"
-        android:text="San Martin 1061"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#B0BEC5"
-        android:text="Oficinas de ingresos municipales"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#78909C"
-        android:text="Fotheringham 1364"/>
+        android:textColor="#a7a6a6"
+        android:textAlignment="center" />
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:id="@+id/imageView"
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/provincia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/subeblanco"/>
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_defaultColor="#ffffff"
+        fancy:fb_focusColor="#ffffff"
+        fancy:fb_radius="30dp"
+        fancy:fb_text="Provincia"
+        fancy:fb_borderColor="#398ae7"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_textColor="#398ae7" />
+
+</LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center|bottom">
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     android:orientation="vertical"
+     android:layout_weight="1"
+     android:gravity="center_vertical">
 
-        <in.championswimmer.libsocialbuttons.buttons.BtnFacebook
-            android:id="@+id/facebook"
-            android:text="Sube movil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/facetext"
-            android:textColor="#FFFFFF"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_height="wrap_content"
-            android:text="Unite y mantenete al tanto de novedades y actualizaciones de la aplicación"/>
+     <mehdi.sakout.fancybuttons.FancyButton
+         android:id="@+id/facebook"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:padding="10dp"
+         android:layout_gravity="center"
+         fancy:fb_borderColor="#FFFFFF"
+         fancy:fb_borderWidth="1dp"
+         fancy:fb_defaultColor="#3b5998"
+         fancy:fb_focusColor="#5577bd"
+         fancy:fb_fontIconResource="@string/icon_like"
+         fancy:fb_fontIconSize="20sp"
+         fancy:fb_iconPosition="right"
+         fancy:fb_radius="30dp"
+         fancy:fb_text="Sube Móvil"
+         fancy:fb_textColor="#FFFFFF"/>
 
-        <com.beardedhen.androidbootstrap.AwesomeTextView
-            android:id="@+id/fa_text"
-            style="@style/wrapping_fa_text"
-            app:bootstrapBrand="primary"
-            app:fontAwesomeIcon="fa_exclamation_circle"
-            />
+     <TextView
+         android:id="@+id/facetext"
+         android:textColor="#7b7a7a"
+         android:gravity="center"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="10dp"
+         android:text="Unite y mantenete al tanto de novedades y actualizaciones de la aplicación"/>
+
+        <com.brouding.blockbutton.BlockButton
+            app:pushDepthDp="2"
+            app:buttonColor="#e4571f"
+            app:buttonDisabledColor="#999999"
+            android:id="@+id/leer"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="14dp"
+                android:text="Leer" />
+
+        </com.brouding.blockbutton.BlockButton>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="20dp"
+        android:orientation="vertical">
+
+        <com.brouding.blockbutton.BlockButton
+            app:pushDepthDp="2"
+            app:buttonColor="#4d8fda"
+            app:buttonDisabledColor="#999999"
+            android:id="@+id/acerca_de"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:textSize="17dp"
+                android:text="Acerca de .." />
+
+        </com.brouding.blockbutton.BlockButton>
+
+    </RelativeLayout>
 
 </LinearLayout>
 

@@ -5,4 +5,6 @@
     <dimen name="item_circle_size_path">47dp</dimen>
     <dimen name="item_font_size_path">18sp</dimen>
     <dimen name="micro_padding">4dp</dimen>
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+
 </resources>

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.special.ResideMenu-merged_res-4:/drawable-hdpi-v4/shadow.png",
+        "source": "com.special.ResideMenu-ResideMenu-5:/drawable-hdpi/shadow.png"
+    },
+    {
+        "merged": "com.special.ResideMenu-merged_res-4:/drawable-hdpi-v4/ic_launcher.png",
+        "source": "com.special.ResideMenu-ResideMenu-5:/drawable-hdpi/ic_launcher.png"
+    }
+]

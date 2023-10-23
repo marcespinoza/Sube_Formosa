@@ -1,0 +1,8 @@
+com.special.ResideMenu-pngs-0 /home/marcelo/android_projects/Sube_Formosa/ResideMenu/build/generated/res/pngs/release
+com.special.ResideMenu-resValues-1 /home/marcelo/android_projects/Sube_Formosa/ResideMenu/build/generated/res/resValues/release
+com.special.ResideMenu-rs-2 /home/marcelo/android_projects/Sube_Formosa/ResideMenu/build/generated/res/rs/release
+com.special.ResideMenu-mergeReleaseResources-3 /home/marcelo/android_projects/Sube_Formosa/ResideMenu/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.special.ResideMenu-mergeReleaseResources-4 /home/marcelo/android_projects/Sube_Formosa/ResideMenu/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.special.ResideMenu-merged_res-5 /home/marcelo/android_projects/Sube_Formosa/ResideMenu/build/intermediates/merged_res/release
+com.special.ResideMenu-ResideMenu-6 /home/marcelo/android_projects/Sube_Formosa/ResideMenu/res
+com.special.ResideMenu-release-7 /home/marcelo/android_projects/Sube_Formosa/ResideMenu/src/release/res

@@ -6,30 +6,47 @@
     android:layout_gravity="center_vertical|center_horizontal"
     android:gravity="center_vertical|center_horizontal">
 
-    <WebView android:id="@+id/webPage"
-        android:layout_height="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <WebView android:id="@+id/webPage"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         android:paddingTop="70dp"/>
 
     <com.github.rahatarmanahmed.cpv.CircularProgressView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/progress_view"
-        android:layout_gravity="center_vertical|center_horizontal"
+        app:layout_constraintStart_toStartOf="@id/webPage"
+        app:layout_constraintEnd_toEndOf="@id/webPage"
+        app:layout_constraintTop_toTopOf="@id/webPage"
+        app:layout_constraintBottom_toBottomOf="@id/webPage"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:cpv_animAutostart="true"
         app:cpv_indeterminate="true"
         app:cpv_color="@color/material_blue_400"/>
 
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
-        app:backgroundTint="@color/material_blue_400"
-        app:rippleColor="@color/material_blue_800"
-        android:src="@drawable/pencil"/>-->
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            ads:layout_constraintTop_toBottomOf="@id/webPage"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-1750234237560957/9631995673">
+
+        </com.google.android.gms.ads.AdView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
 

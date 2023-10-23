@@ -2,24 +2,17 @@ package com.sube.movil.Views;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.arlib.floatingsearchview.util.adapter.TextWatcherAdapter;
-import com.mercadopago.constants.PaymentMethods;
-import com.mercadopago.constants.PaymentTypes;
-import com.mercadopago.constants.Sites;
-import com.mercadopago.core.MercadoPagoCheckout;
-import com.mercadopago.model.Item;
-import com.mercadopago.preferences.CheckoutPreference;
 import com.sube.movil.Interfaces.CargaSaldoInterface;
 import com.sube.movil.Presenters.CargaSaldoPresenter;
 import com.sube.movil.R;
@@ -68,21 +61,6 @@ public class CargaSaldo extends Fragment implements CargaSaldoInterface.View{
         aviso = rootView.findViewById(R.id.aviso_carga_saldo);
         aviso.setTypeface(typeface);
         return rootView;
-    }
-
-    private void cargar(){
-        CheckoutPreference checkoutPreference = new CheckoutPreference.Builder()
-                .addItem(new Item("Item", new BigDecimal("50")))
-                .setSite(Sites.ARGENTINA)
-                .addExcludedPaymentType(PaymentTypes.TICKET) //Handle exclusions by payment types
-                .addExcludedPaymentMethod(PaymentMethods.ARGENTINA.VISA) //Exclude specific payment methods
-                .setMaxInstallments(1) //Limit the amount of installments
-                .build();
-        new MercadoPagoCheckout.Builder()
-                .setActivity(getActivity())
-                .setPublicKey("TEST-b798749b-b8fb-4e63-903f-6959643be544")
-                .setCheckoutPreference(checkoutPreference)
-                .startForPayment();
     }
 
     @Override
