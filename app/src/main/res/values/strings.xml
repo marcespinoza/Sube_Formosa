@@ -24,4 +24,5 @@
     <string name="aviso_carga_saldo">IMPORTANTE \nSube Móvil utiliza la api de MercadoPago para realizar la carga de su tarjeta SUBE,
         por lo tanto esta aplicación no accede a los datos de su tarjeta de crédito o débito.\nRecuerde que luego de realizar la carga de saldo por este medio, usted debe acercarse a una TERMINAL AUTOMATICA para que el mismo sea acreditado
     a su tarjeta.</string>
+    <string name="ubicacion_actual">Ubicación actual</string>
 </resources>

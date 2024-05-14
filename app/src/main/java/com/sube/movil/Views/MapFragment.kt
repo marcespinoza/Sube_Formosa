@@ -49,6 +49,7 @@ import com.google.android.gms.location.LocationRequest
 import com.sube.movil.Marker
 import com.sube.movil.NetworkUtils
 import com.sube.movil.R
+import com.sube.movil.Util.Constants
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -387,22 +388,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
     override fun onConnectionSuspended(i: Int) {}
     override fun onLocationChanged(location: Location) {
         if (isAdded && context != null) {
-            if (location != null) {
-                loc = LatLng(location.latitude, location.longitude)
-                getCompleteAddressString(location.latitude, location.longitude, true)
-                loc1.latitude = location.latitude
-                loc1.longitude = location.longitude
-                //new Markers().execute();
-                progressView!!.startAnimation()
-                obtenerMarkers(_context)
-                mGoogleMap!!.addMarker(MarkerOptions().position(loc!!))
-                mGoogleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(loc!!, 15f))
-            } else {
-                Toast.makeText(
-                    activity,
-                    "Sin ubicación", Toast.LENGTH_SHORT
-                ).show()
-            }
+            loc = LatLng(location.latitude, location.longitude)
+            getCompleteAddressString(location.latitude, location.longitude, true)
+            loc1.latitude = location.latitude
+            loc1.longitude = location.longitude
+            //new Markers().execute();
+            progressView!!.startAnimation()
+            obtenerMarkers(_context)
+            mGoogleMap!!.addMarker(MarkerOptions().position(loc!!))
+            mGoogleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(loc!!, 15f))
         }
     }
 
@@ -422,15 +416,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
                     val marker = Marker()
                     val location = Location("Sin ubicación")
                     val json_data = jArray!!.getJSONObject(i)
-                    /*if (json_data.getInt("Type") == 1) {
-                        mGoogleMap.addMarker((new MarkerOptions().position(
-                                new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
-                                icon(BitmapDescriptorFactory.fromResource(R.drawable.ptocompra)));
-                    } else if (json_data.getInt("tas") == 1) {
-                        mGoogleMap.addMarker((new MarkerOptions().position(
-                                new LatLng(json_data.getDouble("latitud"), json_data.getDouble("longitud"))).title(json_data.getString("direccion")).snippet(json_data.getString("horario"))).
-                                icon(BitmapDescriptorFactory.fromResource(R.drawable.ptotas)));
-                    } else {*/mGoogleMap!!.addMarker(
+                    mGoogleMap!!.addMarker(
                         MarkerOptions().position(
                             LatLng(json_data.getDouble("lat"), json_data.getDouble("lgn"))
                         ).title(json_data.getString("Location"))
@@ -439,36 +425,37 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
                     )
                     location.longitude = json_data.getDouble("lgn")
                     location.latitude = json_data.getDouble("lat")
-                    marker.setDireccion(json_data.getString("Location"))
-                    marker.setHorario(json_data.getString("time"))
-                    marker.setUbicacion(location)
+                    marker.direccion = json_data.getString("Location")
+                    marker.horario = json_data.getString("time")
+                    marker.ubicacion = location
                     markers.add(marker)
                     if (java.lang.Float.compare(loc1.distanceTo(location), posicioncercana) < 0) {
                         posicioncercana = loc1.distanceTo(location)
                     }
                 }
-                Collections.sort(markers) { marker1, marker2 ->
-                    java.lang.Float.compare(
-                        loc1.distanceTo(
-                            marker1.getUbicacion()
-                        ), loc1.distanceTo(marker2.getUbicacion())
-                    )
+                markers.sortWith { marker1, marker2 ->
+                    loc1.distanceTo(
+                        marker1.ubicacion
+                    ).compareTo(loc1.distanceTo(marker2.ubicacion))
                 }
                 progressView!!.stopAnimation()
                 progressView!!.visibility = View.GONE
                 if (markers.size >= 1) {
-                    punto1!!.visibility = View.VISIBLE
-                    punto1!!.text = markers[0].getDireccion() + " " + markers[0].getHorario()
+                    punto1.visibility = View.VISIBLE
+                    val direccion1 = markers[0].getDireccion() + " " + markers[0].getHorario()
+                    punto1.text = direccion1
                 }
                 if (markers.size >= 2) {
-                    view1!!.visibility = View.VISIBLE
-                    punto2!!.visibility = View.VISIBLE
-                    punto2!!.text = markers[1].getDireccion() + " " + markers[1].getHorario()
+                    view1.visibility = View.VISIBLE
+                    punto2.visibility = View.VISIBLE
+                    val direccion2 = markers[1].getDireccion() + " " + markers[1].getHorario()
+                    punto2.text = direccion2
                 }
                 if (markers.size >= 3) {
-                    view2!!.visibility = View.VISIBLE
-                    punto3!!.visibility = View.VISIBLE
-                    punto3!!.text = markers[2].getDireccion() + " " + markers[2].getHorario()
+                    view2.visibility = View.VISIBLE
+                    punto3.visibility = View.VISIBLE
+                    val direccion3 = markers[2].getDireccion() + " " + markers[2].getHorario()
+                    punto3.text = direccion3
                 }
             } catch (e: JSONException) {
                 Log.e("log_tag", "Error parsing data $e")
@@ -477,7 +464,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
     }
 
     fun obtenerMarkers(context: Context?) {
-        val url = "https://api-subemovil.onrender.com/api/recargas/"
+        val url = Constants.API_URL
         val jsonBody = JSONObject()
         try {
             jsonBody.put("provincia", shared_provincia)
@@ -505,10 +492,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCa
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Log.e("error", error.message!!)
+                    Log.e("error", error.toString())
                 }
             }) {
-                override fun getParams(): Map<String, String>? {
+                override fun getParams(): Map<String, String> {
                     val MyData: MutableMap<String, String> = HashMap()
                     MyData["provincia"] = shared_provincia!!
                     return MyData

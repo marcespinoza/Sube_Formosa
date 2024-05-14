@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="azul">#1565C0</color>
+    <color name="azul_sube">#0695d6</color>
     <color name="negro">#000000</color>
     <color name="naranja">#FF3D00</color>
     <color name="rosado">#E91E63</color>

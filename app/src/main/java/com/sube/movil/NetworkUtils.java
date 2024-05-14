@@ -29,15 +29,9 @@ public class NetworkUtils {
 
     private static boolean isConnected(@NonNull Context context, int type) {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            NetworkInfo networkInfo = connMgr.getNetworkInfo(type);
-            return networkInfo != null && networkInfo.isConnected();
-        } else {
-            return isConnected(connMgr, type);
-        }
+        return isConnected(connMgr, type);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static boolean isConnected(@NonNull ConnectivityManager connMgr, int type) {
         Network[] networks = connMgr.getAllNetworks();
         NetworkInfo networkInfo;

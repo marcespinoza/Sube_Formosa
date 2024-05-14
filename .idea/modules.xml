@@ -4,11 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Sube_Formosa.iml" filepath="$PROJECT_DIR$/Sube_Formosa.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ResideMenu/Sube_Formosa.ResideMenu.iml" filepath="$PROJECT_DIR$/.idea/modules/ResideMenu/Sube_Formosa.ResideMenu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ResideMenu/Sube_Formosa.ResideMenu.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ResideMenu/Sube_Formosa.ResideMenu.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ResideMenu/Sube_Formosa.ResideMenu.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ResideMenu/Sube_Formosa.ResideMenu.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ResideMenu/Sube_Formosa.ResideMenu.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ResideMenu/Sube_Formosa.ResideMenu.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sube_Formosa.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sube_Formosa.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sube_Formosa.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sube_Formosa.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sube_Formosa.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sube_Formosa.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sube_Formosa.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sube_Formosa.app.unitTest.iml" />
     </modules>
